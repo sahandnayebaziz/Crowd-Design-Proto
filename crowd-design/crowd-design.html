@@ -1,0 +1,28 @@
+<head>
+  <title>crowd-design</title>
+</head>
+
+<body>
+  <div id="container" style="width: 800px; margin: 0 auto; display: block;">
+    <div id="loginArea" style="float: left">
+      {{> loginButtons}}
+    </div>
+
+    <ul style="float: left; clear: both">
+      {{#each projects}} {{> project}} {{/each}}
+    </ul>
+
+    <form class="new-project" style="float: left; clear: both">
+      <input type="text" name="text" placeholder="New Project Name" />
+      <input type="submit" value="Create" />
+    </form>
+  </div>
+
+</body>
+
+<template name="project">
+  <span class="project-wrapper" style="float: left; clear: both;"> 
+    <p style="float: left;">Project: {{name}}</p>
+    <button style="float: left;" class="delete">&times;</button>
+  </span>
+</template>
