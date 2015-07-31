@@ -3,22 +3,35 @@
 </head>
 
 <body>
-  <div id="container" style="width: 800px; margin: 0 auto; display: block;">
-    <div id="loginArea" style="float: left">
-      {{> loginButtons}}
-    </div>
+</body>
 
+
+<!-- templates -->
+
+<template name="loginArea">
+  <div id="loginArea" style="float: left">
+    {{> loginButtons}}
+  </div>
+</template>
+
+<template name="home">
+  <div id="container" style="width: 800px; margin: 0 auto; display: block;">
+    {{> loginArea}}
+    
+    {{#if currentUser}}
     <ul style="float: left; clear: both">
       {{#each projects}} {{> project}} {{/each}}
     </ul>
-
+    
     <form class="new-project" style="float: left; clear: both">
       <input type="text" name="text" placeholder="New Project Name" />
       <input type="submit" value="Create" />
     </form>
+    {{/if}}
   </div>
+</template>
 
-</body>
+
 
 <template name="project">
   <span class="project-wrapper" style="float: left; clear: both;"> 

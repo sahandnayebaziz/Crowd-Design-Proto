@@ -1,13 +1,22 @@
+// Routes
+Router.route('/', function () {
+  this.render('Home');
+});
+
+
+// Collections
 Projects = new Mongo.Collection("projects");
 
+
+// Client code
 if (Meteor.isClient) {
-  Template.body.helpers({
+  Template.home.helpers({
     projects: function () {
       return Projects.find({}, {sort: {createdAt: -1}});
     }
   })
 
-  Template.body.events({
+  Template.home.events({
     "submit .new-project": function (event) {
       // Prevent default browser form submit
       event.preventDefault();
@@ -18,7 +27,9 @@ if (Meteor.isClient) {
       // Insert a task into the collection
       Projects.insert({
         name: text,
-        createdAt: new Date() // current time
+        createdAt: new Date(), // current time
+        owner: Meteor.userId(),           // _id of logged in user
+        username: Meteor.user().username
       });
 
       // Clear form
@@ -31,8 +42,14 @@ if (Meteor.isClient) {
       Projects.remove(this._id);
     }
   });
+  
+  Accounts.ui.config({
+    passwordSignupFields: "USERNAME_ONLY"
+  });
 }
 
+
+// Server code
 if (Meteor.isServer) {
   Meteor.startup(function () {
     // code to run on server at startup
