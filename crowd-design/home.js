@@ -1,13 +1,3 @@
-// Routes
-Router.route('/', function () {
-  this.render('Home');
-});
-
-
-// Collections
-Projects = new Mongo.Collection("projects");
-
-
 // Client code
 if (Meteor.isClient) {
   Template.home.helpers({
@@ -27,9 +17,7 @@ if (Meteor.isClient) {
       // Insert a task into the collection
       Projects.insert({
         name: text,
-        createdAt: new Date(), // current time
-        owner: Meteor.userId(),           // _id of logged in user
-        username: Meteor.user().username
+        createdAt: new Date()
       });
 
       // Clear form
@@ -37,7 +25,7 @@ if (Meteor.isClient) {
     }
   });
   
-  Template.project.events({
+  Template.projectLink.events({
     "click .delete": function () {
       Projects.remove(this._id);
     }

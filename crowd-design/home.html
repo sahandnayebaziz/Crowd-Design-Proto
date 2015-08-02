@@ -6,36 +6,33 @@
 </body>
 
 
-<!-- templates -->
+<!-- base -->
 
-<template name="loginArea">
-  <div id="loginArea" style="float: left">
-    {{> loginButtons}}
-  </div>
+<template name="baseNav">
+  <h1><a href="/" style="color: gray; text-decoration: none;">CrowdDesign Proto</a></h1>
 </template>
 
+
+
+<!-- home -->
 <template name="home">
-  <div id="container" style="width: 800px; margin: 0 auto; display: block;">
-    {{> loginArea}}
+  <div id="container">
+    {{> baseNav}}
     
-    {{#if currentUser}}
     <ul style="float: left; clear: both">
-      {{#each projects}} {{> project}} {{/each}}
+      {{#each projects}} {{> projectLink}} {{/each}}
     </ul>
     
     <form class="new-project" style="float: left; clear: both">
       <input type="text" name="text" placeholder="New Project Name" />
       <input type="submit" value="Create" />
     </form>
-    {{/if}}
   </div>
 </template>
 
-
-
-<template name="project">
+<template name="projectLink">
   <span class="project-wrapper" style="float: left; clear: both;"> 
-    <p style="float: left;">Project: {{name}}</p>
+    <p style="float: left;"><a href='/projects/{{_id}}'>{{name}}</a></p>
     <button style="float: left;" class="delete">&times;</button>
   </span>
 </template>
