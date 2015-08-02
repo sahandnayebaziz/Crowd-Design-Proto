@@ -6,6 +6,7 @@
 </template>
 
 <template name="decisionsList">
+  <h4>Decisions:</h4>
   {{#each decisions}} {{> decisionLink}} {{/each}}
   <form class="new-decision" style="float: left; clear: both;">
     <input type="text" name="text" placeholder="name of new decision" />
@@ -15,7 +16,7 @@
 
 <template name="decisionLink">
   <span style="float: left; clear: both;"> 
-    <p style="float: left;"><a href='/projects/{{_id}}'>{{name}}</a></p>
+    <p style="float: left;"><a href='#'>{{name}}</a></p>
     <button style="float: left;" class="delete">&times;</button>
   </span>
 </template>

@@ -1,7 +1,10 @@
 if (Meteor.isClient) {
   Template.decisionsList.helpers({
     decisions: function () {
-      return Decisions.find({}, {sort: {createdAt: -1}});
+      
+      // find decisions whose projectId == this project's id
+      // sort alphabetically
+      return Decisions.find({projectId: this._id}, {sort: {name: 1}}); 
     }
   })
 
@@ -12,12 +15,17 @@ if (Meteor.isClient) {
       
       // Get value from form element
       var text = event.target.text.value;
-
-      // Insert a task into the collection
-      Decisions.insert({
-        name: text,
-        createdAt: new Date()
-      });
+      
+      // if name is not empty
+      if (event.target.text.value != "") {
+        
+        // Insert a task into the collection
+        Decisions.insert({
+          name: text,
+          createdAt: new Date(),
+          projectId: this._id // this refers to the current project
+        });
+      }
 
       // Clear form
       event.target.text.value = "";
