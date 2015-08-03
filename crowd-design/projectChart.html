@@ -1,0 +1,47 @@
+<template name="projectChart">
+  <div id="container">
+    {{> baseNav}}
+    <h2 style="margin-bottom: 100px;"><a href="/projects/{{_id}}">{{name}}</a></h2> {{> morphologicalChart}}
+
+  </div>
+</template>
+
+<template name="morphologicalChart">
+  <h4>Morphological Chart</h4> {{#each decisions}} {{> decisionRow}} {{/each}}
+</template>
+
+<template name="decisionRow">
+  <div id="decisionRow">
+    <style>
+      #decisionRow {
+        width: 800px;
+        float: left;
+        clear: left;
+      }
+      
+      #decisionTitle {
+        display: block;
+        margin-bottom: 30px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        padding-left: 5px;
+        float: left;
+        width: 100px;
+        height: 30px;
+      }
+      
+      #decisionSolutions {
+        margin-left: 10px;
+      }
+    </style>
+    <span id="decisionTitle">{{name}}</span>
+    <span id="decisionSolutions">
+      {{#each solutions}} {{> solutionPreview}} {{/each}}
+    <button class="new-solution">New solution</button>
+    </span>
+  </div>
+</template>
+
+<template name="solutionPreview">
+  <a href="/solution/{{_id}}">{{name}}</a><button class="delete">&times;</button>
+</template>

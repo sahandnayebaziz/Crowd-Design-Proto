@@ -1,0 +1,55 @@
+
+<template name="solution">
+  <div id="container">
+    {{> baseNav}}
+    <h2 style="margin-bottom: 100px;"><a href="/projects/{{decision.projectId}}/chart">{{decision.name}}</a></h2> {{> solutionMeta}} {{> solutionSketchArea}}
+  </div>
+</template>
+
+<template name="solutionMeta">
+  <form class="solutionMetaName">
+    <input type="text" name="text" class="solutionTitle" placeholder="{{name}}">
+  </form>
+  <form class="solutionSketchData">
+    <button type="submit">Save sketch</button>
+  </form>
+  
+  <style>
+    .solutionMetaName {
+      float: left;
+      margin-bottom: 50px;
+    }
+    
+    .solutionSketchData {
+      float: left;
+    }
+  </style>
+</template>
+
+<template name="solutionSketchArea">
+  <div id="solutionCanvasArea">
+    <canvas id="solutionCanvas" height="300" width="600"></canvas>
+  </div>
+  
+  <script>
+    // create a wrapper around native canvas element (with id="c")
+    var canvas = new fabric.Canvas('solutionCanvas');
+    canvas.isDrawingMode = true;
+    
+  </script>
+  
+  {{#if sketch}}
+  <script>
+    canvas.loadFromJSON({{sketch}});
+    canvas.renderAll();
+  </script>
+  {{/if}}
+  
+  <style>
+    #solutionCanvasArea {
+      border-bottom: 1px solid gray;
+      clear: both;
+      float: left;
+    }
+  </style>
+</template>

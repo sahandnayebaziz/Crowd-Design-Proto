@@ -1,7 +1,9 @@
 <template name="project">
   <div id="container">
     {{> baseNav}}
-    <h2 style="margin-bottom: 100px;">{{name}}</h2> {{> decisionsList}}
+    <h2 style="margin-bottom: 100px;">{{name}}</h2> 
+    {{> decisionsList}}
+    <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>
   </div>
 </template>
 
@@ -16,7 +18,7 @@
 
 <template name="decisionLink">
   <span style="float: left; clear: both;"> 
-    <p style="float: left;"><a href='#'>{{name}}</a></p>
+    <p style="float: left;">{{name}}</p>
     <button style="float: left;" class="delete">&times;</button>
   </span>
 </template>
