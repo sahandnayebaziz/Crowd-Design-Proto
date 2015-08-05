@@ -4,7 +4,7 @@ if (Meteor.isClient) {
       
       // find decisions whose projectId == this project's id
       // sort alphabetically
-      return Decisions.find({projectId: this._id}, {sort: {name: 1}}); 
+      return Decisions.find({projectId: this._id}, {sort: {createdAt: 1}}); 
     }
   })
 
@@ -26,6 +26,8 @@ if (Meteor.isClient) {
           projectId: this._id // this refers to the current project
         });
       }
+      
+      showShadow();
 
       // Clear form
       event.target.text.value = "";

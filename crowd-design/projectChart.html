@@ -12,7 +12,14 @@
 
 <template name="decisionRow">
   <div id="decisionRow">
-    <style>
+    
+    <span id="decisionTitle">{{name}}</span>
+    <span id="decisionSolutions">
+      {{#each solutions}} {{> solutionPreview}} {{/each}}
+    <button class="new-solution">New solution</button>
+    </span>
+  </div>
+  <style>
       #decisionRow {
         width: 800px;
         float: left;
@@ -34,12 +41,6 @@
         margin-left: 10px;
       }
     </style>
-    <span id="decisionTitle">{{name}}</span>
-    <span id="decisionSolutions">
-      {{#each solutions}} {{> solutionPreview}} {{/each}}
-    <button class="new-solution">New solution</button>
-    </span>
-  </div>
 </template>
 
 <template name="solutionPreview">

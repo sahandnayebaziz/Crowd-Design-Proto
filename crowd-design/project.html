@@ -1,24 +1,176 @@
 <template name="project">
-  <div id="container">
-    {{> baseNav}}
-    <h2 style="margin-bottom: 100px;">{{name}}</h2> 
-    {{> decisionsList}}
-    <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>
-  </div>
+  {{> decisionsList}} {{> freeformSketch}}
+  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>
 </template>
 
 <template name="decisionsList">
-  <h4>Decisions:</h4>
-  {{#each decisions}} {{> decisionLink}} {{/each}}
-  <form class="new-decision" style="float: left; clear: both;">
-    <input type="text" name="text" placeholder="name of new decision" />
-    <input type="submit" value="add" />
-  </form>
+  <div id="decisionArea">
+    <span id="decisionHelpMessage">Decisions for {{name}}:</span>
+    <form class="animated fadeIn new-decision" style="float: left; clear: both;">
+      <input type="text" name="text" class="decisionLinkForm" placeholder="new decision" />
+    </form>
+    <div id="decisions">
+      {{#each decisions}} {{> decisionLink}} {{/each}}
+    </div>
+    {{#if decisions.count}}
+    <img src="/barshadow.png" class="decisionShadow">
+    {{/if}}
+
+  </div>
+
+  <script>
+  </script>
+
+  <style>
+    #decisionArea {
+      display: block;
+      float: left;
+      width: 467px;
+      margin-left: 150px;
+    }
+    
+    #decisionHelpMessage {
+      margin-top: 100px;
+      margin-bottom: 90px;
+      display: block;
+      font-family: "Avenir Next";
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 13px;
+      float: left;
+    }
+    
+    .decisionShadow {
+      position: absolute;
+      left: 54px;
+      bottom: 55px;
+      opacity: 0.2;
+    }
+    
+    .new-decision {
+      float: left;
+      clear: both;
+      border: 1px solid #d64f2f;
+      width: 467px;
+      margin-bottom: 10px;
+    }
+    
+    .decisionLinkForm {
+      width: 467px;
+      text-align: center;
+      display: block;
+      font-family: "Avenir Next";
+      color: white;
+      letter-spacing: 1px;
+      font-size: 19px;
+      -webkit-font-smoothing: subpixel-antialiased;
+      background-color: transparent;
+      border: none;
+      padding-top: 17px;
+      padding-bottom: 17px;
+      outline: none;
+    }
+    
+    #decisions {
+      height: 760px;
+      width: 467px;
+      overflow-y: scroll;
+      display: block;
+      float: left;
+    }
+  </style>
 </template>
 
 <template name="decisionLink">
-  <span style="float: left; clear: both;"> 
-    <p style="float: left;">{{name}}</p>
-    <button style="float: left;" class="delete">&times;</button>
+  <span class="decisionLink animated fadeIn"> 
+    <p class="decisionLinkName" style="float: left;">{{name}}</p>
+    <span style="float: right;" class="delete">&#10006;</span>
   </span>
+
+  <style>
+    .decisionLink {
+      float: left;
+      clear: both;
+      background-color: #d64f2f;
+      width: 467px;
+      margin-bottom: 10px;
+    }
+    
+    .decisionLinkName {
+      width: 467px;
+      text-align: center;
+      display: block;
+      font-family: "Avenir Next";
+      color: white;
+      letter-spacing: 1px;
+      font-size: 19px;
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+    
+    .delete {
+      position: absolute;
+      margin-left: -68px;
+      margin-top: -8px;
+      padding-left: 30px;
+      padding-top: 30px;
+      padding-right: 30px;
+      padding-bottom: 30px;
+      font-family: "Avenir Next";
+      color: white;
+      -webkit-font-smoothing: antialiased;
+      opacity: 0;
+    }
+    
+    .delete:hover {
+      opacity: 1;
+    }
+  </style>
+</template>
+
+<template name="freeformSketch">
+  <div id="practiceSketchArea">
+    <span id="practiceSketchHelpMessage">SKETCH IDEAS ANYWHERE BELOW<br><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></span>
+    <canvas id="practiceSketch" width="1200" height="3000"></canvas>
+
+    <script>
+      var canvas = new fabric.Canvas('practiceSketch');
+      canvas.isDrawingMode = true;
+      canvas.freeDrawingBrush.width = 6
+      canvas.freeDrawingBrush.color = "white"
+
+      fabric.util.addListener(fabric.document, 'dblclick', function () {
+        canvas.clear().renderAll();
+      });
+
+      function showShadow() {
+        $(".decisionShadow").isHidden = false;
+      }
+    </script>
+
+    <style>
+      #practiceSketchArea {
+        float: right;
+        border-left: 1px dotted rgba(255, 255, 255, 0.5);
+      }
+      
+      #practiceSketchHelpMessage {
+        margin-top: 100px;
+        margin-bottom: -120px;
+        margin-right: 100px;
+        display: block;
+        font-family: "Avenir Next";
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 13px;
+        float: right;
+        text-align: right;
+      }
+      
+      #practiceSketch {
+        width: 1000px;
+        height: 1000px;
+        display: block;
+      }
+    </style>
+  </div>
 </template>

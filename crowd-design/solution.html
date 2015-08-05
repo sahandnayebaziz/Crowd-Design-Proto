@@ -27,8 +27,8 @@
 </template>
 
 <template name="solutionSketchArea">
-  <div id="solutionCanvasArea">
-    <canvas id="solutionCanvas" height="300" width="600"></canvas>
+  <div id="solutionCanvasArea" class="canvasShadow">
+    <canvas id="solutionCanvas" height="600" width="900"></canvas>
   </div>
   
   <script>
@@ -47,9 +47,10 @@
   
   <style>
     #solutionCanvasArea {
-      border-bottom: 1px solid gray;
       clear: both;
       float: left;
+      display: block;
+      margin-bottom: 100px;
     }
   </style>
 </template>
