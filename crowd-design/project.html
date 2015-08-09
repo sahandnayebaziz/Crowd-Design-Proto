@@ -1,6 +1,6 @@
 <template name="project">
   {{> decisionsList}} {{> freeformSketch}}
-<!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
+  <!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
@@ -12,15 +12,11 @@
       <input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
     </form>
     <div id="decisions">
-      {{#each decisions}} {{> decisionLink}} {{/each}}
+      {{#each decisions}} {{> decisionBox}} {{/each}}
     </div>
     {{#if decisions.count}}
     <img src="/barshadow.png" class="decisionShadow"> {{/if}}
-
   </div>
-
-  <script>
-  </script>
 
   <style>
     #decisionArea {
@@ -79,25 +75,16 @@
       display: block;
       float: left;
     }
-  </style>
-</template>
-
-<template name="decisionLink">
-  <span class="decisionLink animated fadeIn"> 
-    <p class="decisionLinkName" style="float: left;">{{name}}</p>
-    <span style="float: right;" class="delete">&#10006;</span>
-  </span>
-
-  <style>
-    .decisionLink {
+    
+    .decisionBox {
       float: left;
       clear: both;
       background-color: #d64f2f;
       width: 467px;
-      margin-bottom: 10px;
+      margin-top: 10px;
     }
     
-    .decisionLinkName {
+    .decisionName {
       width: 467px;
       text-align: center;
       display: block;
@@ -125,12 +112,74 @@
     .delete:hover {
       opacity: 1;
     }
+    
+    .decisionDetails {
+      float: left;
+      display: block;
+      border: 1px solid #d64f2f;
+      width: 465px;
+      height: 90px;
+    }
+    
+    .rationale {
+      display: block;
+      float: left;
+      /*      background-color: peru;*/
+      
+      margin-left: 10px;
+      margin-top: 5px;
+    }
+    
+    .uppercaseSubHeading {
+      font-family: "Avenir Next";
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    
+    .rationaleBox {
+      width: 400px;
+      height: 44px;
+      margin-top: 6px;
+      display: block;
+      resize: none;
+      background-color: transparent;
+      border: 1px solid white;
+      outline: none;
+    }
   </style>
+
+</template>
+
+<template name="decisionBox">
+  <div class="decisionContainer">
+    <div class="decisionBox animated fadeIn">
+      <p class="decisionName" style="float: left;">{{name}}</p>
+      <span style="float: right;" class="delete">&#10006;</span>
+    </div>
+    <div class="decisionDetails">
+      <span class="rationale">
+        <span class="uppercaseSubHeading">rationale and goal:</span>
+      <form class="rationaleForm">
+        <textarea class="rationaleBox" placeholder="Click to type! (Autosaves)">{{rationale}}</textarea>
+      </form>
+      </span>
+    </div>
+  </div>
+
+  <script>
+    // collapse decision details
+    $(document).find('.decisionDetails').css('display', 'none');
+  </script>
+
+
 </template>
 
 <template name="freeformSketch">
   <div id="practiceSketchArea">
-    <span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span> <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
+    <span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
+    <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
     <canvas id="practiceSketch" width="1200" height="3000"></canvas>
     <span id="practiceSketchToolbar">
       <img class="practiceTool colorSelector selectedColor" src="/palette-white.png" data-color="#FFF">

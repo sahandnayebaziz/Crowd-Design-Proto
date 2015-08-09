@@ -36,4 +36,29 @@ if (Meteor.isClient) {
       Decisions.remove(this._id);
     }
   });
+  
+  Template.decisionBox.events({
+    "click .decisionName": function (event) {
+      $(event.target).parent().siblings().slideToggle();
+    },
+    "click .decisionBox": function (event) {
+      $(event.target).siblings().slideToggle();
+    },
+    "blur .rationaleBox": function (event) {
+      console.log('blurred');
+      
+      var text = event.target.value;
+      
+      Decisions.update(this._id, {$set: {rationale: text}}, function () {
+        // this is the completion function
+        console.log("save rationale");
+      });
+    }
+  })
 }
+
+//  $(".decisionBox").click(function () {
+//        console.log("clicked");
+//        console.log($(this).siblings(".decisionDetails"));
+//        $(this).siblings(".decisionDetails").toggle();
+//  })
