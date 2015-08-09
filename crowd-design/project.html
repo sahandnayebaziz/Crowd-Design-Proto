@@ -3,11 +3,13 @@
   <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>
 </template>
 
+<!--RATIONALE AND GOAL -->
+
 <template name="decisionsList">
   <div id="decisionArea">
-    <span id="decisionHelpMessage">Decisions for {{name}}:</span>
+    <span id="decisionHelpMessage">Decision points for {{name}}:</span>
     <form class="animated fadeIn new-decision" style="float: left; clear: both;">
-      <input type="text" name="text" class="decisionLinkForm" placeholder="new decision" />
+      <input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
     </form>
     <div id="decisions">
       {{#each decisions}} {{> decisionLink}} {{/each}}
@@ -42,7 +44,7 @@
     
     .decisionShadow {
       position: absolute;
-      left: 54px;
+      left: 50px;
       bottom: 55px;
       opacity: 0.2;
     }
@@ -131,6 +133,13 @@
   <div id="practiceSketchArea">
     <span id="practiceSketchHelpMessage">SKETCH IDEAS ANYWHERE BELOW<br><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></span>
     <canvas id="practiceSketch" width="1200" height="3000"></canvas>
+    <span id="practiceSketchToolbar">
+      <img class="practiceSketchColorSelector selectedColor" src="/palette-white.png" data-color="#FFF">
+      <img class="practiceSketchColorSelector" src="/palette-ocean.png" data-color="#80D4FC">
+      <img class="practiceSketchColorSelector" src="/palette-green.png" data-color="#6AB373">
+      <img class="practiceSketchColorSelector" src="/palette-orange.png" data-color="#DE8A6E">
+      <img class="practiceSketchColorSelector" src="/palette-yellow.png" data-color="#E9BB35">
+    </span>
 
     <script>
       var canvas = new fabric.Canvas('practiceSketch');
@@ -145,6 +154,12 @@
       function showShadow() {
         $(".decisionShadow").isHidden = false;
       }
+      
+      $(".practiceSketchColorSelector").click(function () {
+        $("img.selectedColor").removeClass("selectedColor");
+        $(this).addClass("selectedColor");
+        canvas.freeDrawingBrush.color = this.getAttribute("data-color");
+      });
     </script>
 
     <style>
@@ -170,6 +185,23 @@
         width: 1000px;
         height: 1000px;
         display: block;
+      }
+      
+      #practiceSketchToolbar {
+        position: absolute;
+        bottom: 100px;
+        right: 100px;
+        text-align: right;
+      }
+      
+      .practiceSketchColorSelector {
+        opacity: 0.4;
+        margin-left: 10px;
+      }
+      
+      .selectedColor {
+        opacity: 1;
+        -webkit-filter: drop-shadow(0px 4px 5px rgba(0,0,0,0.1));
       }
     </style>
   </div>
