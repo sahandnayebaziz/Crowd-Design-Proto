@@ -1,6 +1,6 @@
 <template name="project">
   {{> decisionsList}} {{> freeformSketch}}
-  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>
+<!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
@@ -15,8 +15,7 @@
       {{#each decisions}} {{> decisionLink}} {{/each}}
     </div>
     {{#if decisions.count}}
-    <img src="/barshadow.png" class="decisionShadow">
-    {{/if}}
+    <img src="/barshadow.png" class="decisionShadow"> {{/if}}
 
   </div>
 
@@ -131,14 +130,17 @@
 
 <template name="freeformSketch">
   <div id="practiceSketchArea">
-    <span id="practiceSketchHelpMessage">SKETCH IDEAS ANYWHERE BELOW<br><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></span>
+    <span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span> <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
     <canvas id="practiceSketch" width="1200" height="3000"></canvas>
     <span id="practiceSketchToolbar">
-      <img class="practiceSketchColorSelector selectedColor" src="/palette-white.png" data-color="#FFF">
-      <img class="practiceSketchColorSelector" src="/palette-ocean.png" data-color="#80D4FC">
-      <img class="practiceSketchColorSelector" src="/palette-green.png" data-color="#6AB373">
-      <img class="practiceSketchColorSelector" src="/palette-orange.png" data-color="#DE8A6E">
-      <img class="practiceSketchColorSelector" src="/palette-yellow.png" data-color="#E9BB35">
+      <img class="practiceTool colorSelector selectedColor" src="/palette-white.png" data-color="#FFF">
+      <img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">
+      <img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">
+      <img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">
+      <img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">
+      <img class="practiceTool undoSelector toolWithMargin" src="/undo.png">
+      <img class="practiceTool redoSelector" src="/redo.png">
+      <span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>
     </span>
 
     <script>
@@ -147,19 +149,92 @@
       canvas.freeDrawingBrush.width = 6
       canvas.freeDrawingBrush.color = "white"
 
-      fabric.util.addListener(fabric.document, 'dblclick', function () {
-        canvas.clear().renderAll();
-      });
+      //      fabric.util.addListener(fabric.document, 'dblclick', function () {
+      //        canvas.clear().renderAll();
+      //      });
 
-      function showShadow() {
-        $(".decisionShadow").isHidden = false;
+      var canvasStateStack = [];
+      var canvasRedoStack = [];
+
+      function saveState() {
+        console.log("saved state");
+
+        if (canvasStateStack.length == 30) {
+          canvasStateStack.shift();
+        }
+        if (canvasRedoStack.length != 0) {
+          canvasRedoStack = [];
+        }
+        canvasStateStack.push(JSON.stringify(canvas));
       }
-      
-      $(".practiceSketchColorSelector").click(function () {
+
+      saveState();
+      var recordingStates = true;
+
+      canvas.on('object:added', function (e) {
+        if (recordingStates) {
+          saveState();
+        }
+      })
+
+      canvas.on('object:modified', function (e) {
+        if (recordingStates) {
+          saveState();
+        }
+      })
+
+      canvas.on('object:removed', function (e) {
+        if (recordingStates) {
+          saveState();
+        }
+      })
+
+      $(".colorSelector").click(function () {
         $("img.selectedColor").removeClass("selectedColor");
         $(this).addClass("selectedColor");
         canvas.freeDrawingBrush.color = this.getAttribute("data-color");
       });
+
+      $(".undoSelector").click(function () {
+        if (canvasStateStack.length > 1) {
+          recordingStates = false;
+          var currentState = canvasStateStack.pop();
+          canvasRedoStack.push(currentState);
+
+          var stateToReturnTo = canvasStateStack[canvasStateStack.length - 1];
+          canvas.loadFromJSON(stateToReturnTo);
+          canvas.renderAll();
+          recordingStates = true;
+        }
+      });
+
+      $(".redoSelector").click(function () {
+        if (canvasRedoStack.length > 0) {
+          recordingStates = false;
+          var stateToReturnTo = canvasRedoStack.pop();
+          canvasStateStack.push(stateToReturnTo);
+          canvas.loadFromJSON(stateToReturnTo);
+          canvas.renderAll();
+          recordingStates = true;
+        }
+      });
+
+      $(".clearSelector").click(function () {
+        if (canvas.getObjects().length > 0) {
+          canvas.clear().renderAll();
+          saveState();
+        }
+      })
+
+
+
+
+
+
+
+      function showShadow() {
+        $(".decisionShadow").isHidden = false;
+      }
     </script>
 
     <style>
@@ -168,15 +243,18 @@
         border-left: 1px dotted rgba(255, 255, 255, 0.5);
       }
       
+      .uppercaseHeading {
+        font-family: "Avenir Next";
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 13px;
+      }
+      
       #practiceSketchHelpMessage {
         margin-top: 100px;
         margin-bottom: -120px;
         margin-right: 100px;
         display: block;
-        font-family: "Avenir Next";
-        text-transform: uppercase;
-        letter-spacing: 3px;
-        font-size: 13px;
         float: right;
         text-align: right;
       }
@@ -194,14 +272,27 @@
         text-align: right;
       }
       
-      .practiceSketchColorSelector {
-        opacity: 0.4;
+      .practiceTool {
         margin-left: 10px;
+      }
+      
+      .toolWithMargin {
+        margin-left: 30px;
+      }
+      
+      .colorSelector {
+        opacity: 0.4;
       }
       
       .selectedColor {
         opacity: 1;
-        -webkit-filter: drop-shadow(0px 4px 5px rgba(0,0,0,0.1));
+        -webkit-filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.1));
+      }
+      
+      .clearSelector {
+        display: block;
+        float: right;
+        margin-top: 4px;
       }
     </style>
   </div>
