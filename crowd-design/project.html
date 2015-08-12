@@ -182,11 +182,13 @@
     <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
     <canvas id="practiceSketch" width="1200" height="3000"></canvas>
     <span id="practiceSketchToolbar">
-      <img class="practiceTool colorSelector selectedColor" src="/palette-white.png" data-color="#FFF">
+      <img class="practiceTool colorSelector selectedTool" src="/palette-white.png" data-color="#FFF">
+      <img class="practiceTool colorSelector" src="/palette-black.png" data-color="#202020">
       <img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">
       <img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">
       <img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">
       <img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">
+      <img class="practiceTool eraserTool" src="/eraser.png">
       <img class="practiceTool undoSelector toolWithMargin" src="/undo.png">
       <img class="practiceTool redoSelector" src="/redo.png">
       <span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>
@@ -238,11 +240,42 @@
         }
       })
 
+      // selecting colors
       $(".colorSelector").click(function () {
-        $("img.selectedColor").removeClass("selectedColor");
-        $(this).addClass("selectedColor");
+        $("img.selectedTool").removeClass("selectedTool");
+        $(this).addClass("selectedTool");
         canvas.freeDrawingBrush.color = this.getAttribute("data-color");
+        disableEraser();
       });
+
+      // selecting the eraser
+      $(".eraserTool").click(function () {
+        $("img.selectedTool").removeClass("selectedTool");
+        $(this).addClass("selectedTool");
+        enableEraser();
+      })
+
+      function disableEraser() {
+        canvas.off("mouse:down");
+        canvas.isDrawingMode = true;
+      }
+
+      function enableEraser() {
+        canvas.isDrawingMode = false;
+        canvas.on("mouse:down", function (e) {
+          if (canvas.getActiveGroup()) {
+            recordingStates = false;
+            canvas.getActiveGroup().forEachObject(function (a) {
+              canvas.remove(a);
+            });
+            canvas.discardActiveGroup();
+            recordingStates = true;
+          } else {
+            canvas.remove(canvas.getActiveObject());
+          }
+          canvas.renderAll();
+        });
+      }
 
       $(".undoSelector").click(function () {
         if (canvasStateStack.length > 1) {
@@ -329,11 +362,12 @@
         margin-left: 30px;
       }
       
-      .colorSelector {
+      .colorSelector,
+      .eraserTool {
         opacity: 0.4;
       }
       
-      .selectedColor {
+      .selectedTool {
         opacity: 1;
         -webkit-filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.1));
       }
