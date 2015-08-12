@@ -12,7 +12,9 @@
       <input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
     </form>
     <div id="decisions">
-      {{#each decisions}} {{> decisionBox}} {{/each}}
+      {{#sortable items=decisions options=decisionOptions}}
+        {{> decisionBox}}
+      {{/sortable}}
     </div>
     {{#if decisions.count}}
     <img src="/barshadow.png" class="decisionShadow"> {{/if}}
