@@ -5,7 +5,6 @@ if (Meteor.isClient) {
       return Projects.find({}, {sort: {createdAt: -1}});
     }
   })
-
   Template.home.events({
     "submit .new-project": function (event) {
       // Prevent default browser form submit

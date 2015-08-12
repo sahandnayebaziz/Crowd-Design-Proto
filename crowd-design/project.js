@@ -36,6 +36,8 @@ if (Meteor.isClient) {
       Decisions.remove(this._id);
     }
   });
+
+  var timeoutId;
   
   Template.decisionBox.events({
     "click .decisionName": function (event) {
@@ -44,15 +46,21 @@ if (Meteor.isClient) {
     "click .decisionBox": function (event) {
       $(event.target).siblings().slideToggle();
     },
-    "blur .rationaleBox": function (event) {
-      console.log('blurred');
-      
+    "input .rationaleBox": function (event) {
       var text = event.target.value;
-      
-      Decisions.update(this._id, {$set: {rationale: text}}, function () {
-        // this is the completion function
-        console.log("save rationale");
-      });
+      Decisions.update(this._id, {$set: {rationale: text}});
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(function () {
+        var feedbackMessage = $($(event.target).parents(".rationale").children(".rationaleMessage")[0])
+        feedbackMessage.addClass('animated fadeIn');
+        setTimeout(function () {
+          feedbackMessage.removeClass('fadeIn');
+          feedbackMessage.addClass('fadeOut');
+        }, 1500);
+        setTimeout(function () {
+          feedbackMessage.removeClass('fadeOut');
+        }, 3000);
+      }, 1000)
     }
   })
 }

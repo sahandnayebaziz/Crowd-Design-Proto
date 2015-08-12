@@ -98,21 +98,13 @@
     }
     
     .delete {
-      position: absolute;
-      margin-left: -68px;
-      margin-top: -8px;
-      padding-left: 30px;
-      padding-top: 30px;
-      padding-right: 30px;
-      padding-bottom: 30px;
+      float: right;
+      clear: both;
       font-family: "Avenir Next";
-      color: white;
       -webkit-font-smoothing: antialiased;
-      opacity: 0;
-    }
-    
-    .delete:hover {
-      opacity: 1;
+      font-size: 12px;
+      opacity: 0.5;
+      margin-right: 13px;
     }
     
     .decisionDetails {
@@ -120,16 +112,12 @@
       display: block;
       border: 1px solid #d64f2f;
       width: 465px;
-      height: 90px;
+      height: 140px;
     }
     
     .rationale {
       display: block;
       float: left;
-      /*      background-color: peru;*/
-      
-      margin-left: 10px;
-      margin-top: 5px;
     }
     
     .uppercaseSubHeading {
@@ -138,17 +126,33 @@
       letter-spacing: 2px;
       font-size: 10px;
       font-weight: 600;
+      margin-top: 10px;
+      margin-left: 10px;
+      display: block;
+      float: left;
+    }
+    
+    .rationaleMessage {
+      font-family: "Avenir Next";
+      font-size: 10px;
+      margin-top: 10px;
+      float: right;
+      display: block;
+      opacity: 0;
     }
     
     .rationaleBox {
-      width: 400px;
-      height: 44px;
+      width: 350px;
+      height: 80px;
       margin-top: 6px;
       display: block;
       resize: none;
       background-color: transparent;
       border: 1px solid white;
       outline: none;
+      margin-left: 10px;
+      float: left;
+      clear: both;
     }
   </style>
 
@@ -158,15 +162,16 @@
   <div class="decisionContainer">
     <div class="decisionBox animated fadeIn">
       <p class="decisionName" style="float: left;">{{name}}</p>
-      <span style="float: right;" class="delete">&#10006;</span>
     </div>
     <div class="decisionDetails">
       <span class="rationale">
         <span class="uppercaseSubHeading">rationale and goal:</span>
-      <form class="rationaleForm">
-        <textarea class="rationaleBox" placeholder="Click to type! (Autosaves)">{{rationale}}</textarea>
-      </form>
+        <span class="rationaleMessage">saved</span>
+        <form class="rationaleForm">
+          <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
+        </form>
       </span>
+      <span class="delete">delete</span>
     </div>
   </div>
 
