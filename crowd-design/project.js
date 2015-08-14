@@ -30,10 +30,11 @@ if (Meteor.isClient) {
         });
       }
       
-      showShadow();
-
       // Clear form
       event.target.text.value = "";
+      
+      $(".decisionShadow").isHidden = false;
+      
     },
     "click .delete": function () {
       Decisions.remove(this._id);
@@ -68,34 +69,41 @@ if (Meteor.isClient) {
     "change .categorySelect": function (event) {
       var selectedCategory = event.target.value;
       Decisions.update(this._id, {$set: {category: selectedCategory}}, function () {
-        console.log("updated category");
       });
     },
-    "click .thumb1": function (event) { // TODO: get rid of the repeated function below, add an html-data att to mark with thumb to save it in
+    "click .thumb-new": function (event) {
+      var thumbNumber = event.target.getAttribute("data-thumbNumber");
+      
       canvas.backgroundColor = "#E3E3E3";
       var url =  canvas.toDataURL({format: 'jpeg', quality: 0.3})
       canvas.backgroundColor = null;
       canvas.setBackgroundColor(null, canvas.renderAll.bind(canvas));
-      Decisions.update(this._id, {$set: {thumb1: url}}, function () {
-        event.target.setAttribute("src", url);
-        console.log(event.target);
+      
+      var thumbName = "thumb" + thumbNumber;
+      
+      var $set = {};
+      $set[thumbName] = url;
+      
+      Decisions.update(this._id, {$set: $set}, function () {
+        $(event.target).parents(".thumb").children(".thumb-picture-cover").hide();
       });
     },
-    "click .thumb2": function (event) {
-      canvas.backgroundColor = "#E3E3E3";
-      var url =  canvas.toDataURL({format: 'jpeg', quality: 0.3})
-      canvas.backgroundColor = null;
-      canvas.setBackgroundColor(null, canvas.renderAll.bind(canvas));
-      Decisions.update(this._id, {$set: {thumb2: url}}, function () {
-        event.target.setAttribute("src", url);
-        console.log(event.target);
+    "click .thumb-delete": function (event) {
+      var thumbNumber = event.target.getAttribute("data-thumbNumber");
+      var thumbName = "thumb" + thumbNumber;
+      
+      var $unset = {};
+      $unset[thumbName] = null;
+      Decisions.update(this._id, {$unset:{thumb1: "hello"}}, function () {
+        $(event.target).parents(".thumb").children(".thumb-picture-cover").show();
       });
+      
+      
     }
   });
 
   Template.decisionBox.helpers({
     isSelected: function(cat) {
-      console.log(cat);
       return (cat === this.category);
     }
   });
@@ -104,17 +112,20 @@ if (Meteor.isClient) {
     if(!this._rendered) {
       this._rendered = true;
 
+      $(function () {
+        $('a').fluidbox();
+      });
+
       // MARK: Create Canvas and add hooks
       canvas = new fabric.Canvas('practiceSketch');
       canvas.isDrawingMode = true;
       canvas.freeDrawingBrush.width = 6
-      canvas.freeDrawingBrush.color = "white"
+      canvas.freeDrawingBrush.color = "black"
 
       var canvasStateStack = [];
       var canvasRedoStack = [];
 
       function saveState() {
-        console.log("saved state");
 
         if (canvasStateStack.length == 30) {
           canvasStateStack.shift();
@@ -212,11 +223,7 @@ if (Meteor.isClient) {
           canvas.clear().renderAll();
           saveState();
         }
-      })
-
-      function showShadow() {
-        $(".decisionShadow").isHidden = false;
-      }
+      });
     }
   }
 }

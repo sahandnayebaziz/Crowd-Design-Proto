@@ -1,257 +1,340 @@
 <template name="project">
-	{{> decisionsList}} {{> freeformSketch}}
-	<!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
+  {{> decisionsList}} {{> freeformSketch}}
+  <!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
 
 <template name="decisionsList">
-	<div id="decisionArea">
-		<span id="decisionHelpMessage">Decision points for {{name}}:</span>
-		<form class="animated fadeIn new-decision" style="float: left; clear: both;">
-			<input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
-		</form>
-		<div id="decisions">
-			{{#each decisions}}
-				{{> decisionBox}}
-			{{/each}}
-		</div>
-		{{#if decisions.count}}
-			<img src="/barshadow.png" class="decisionShadow"> {{/if}}
-	</div>
+  <div id="decisionArea">
+    <span id="decisionHelpMessage">Decision points for {{name}}:</span>
+    <form class="animated fadeIn new-decision" style="float: left; clear: both;">
+      <input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
+    </form>
+    <div id="decisions">
+      {{#each decisions}} {{> decisionBox}} {{/each}}
+    </div>
+    {{#if decisions.count}}
+    <img src="/barshadow.png" class="decisionShadow"> {{/if}}
+  </div>
 
-	<style>
-		#decisionArea {
-			display: block;
-			float: left;
-			width: 467px;
-			margin-left: 150px;
-		}
-
-		#decisionHelpMessage {
-			margin-top: 100px;
-			margin-bottom: 90px;
-			display: block;
-			font-family: "Avenir Next";
-			text-transform: uppercase;
-			letter-spacing: 3px;
-			font-size: 13px;
-			float: left;
-		}
-
-		.decisionShadow {
-			position: absolute;
-			left: 50px;
-			bottom: 55px;
-			opacity: 0.2;
-		}
-
-		.new-decision {
-			float: left;
-			clear: both;
-			border: 1px solid #d64f2f;
-			width: 467px;
-			margin-bottom: 10px;
-		}
-
-		.decisionLinkForm {
-			width: 467px;
-			text-align: center;
-			display: block;
-			font-family: "Avenir Next";
-			color: white;
-			letter-spacing: 1px;
-			font-size: 19px;
-			-webkit-font-smoothing: subpixel-antialiased;
-			background-color: transparent;
-			border: none;
-			padding-top: 17px;
-			padding-bottom: 17px;
-			outline: none;
-		}
-
-		#decisions {
-			height: 760px;
-			width: 467px;
-			overflow-y: scroll;
-			display: block;
-			float: left;
-		}
-
-		.decisionBox {
-			float: left;
-			clear: both;
-			background-color: #d64f2f;
-			width: 467px;
-			margin-top: 10px;
-		}
-
-		.decisionName {
-			width: 467px;
-			text-align: center;
-			display: block;
-			font-family: "Avenir Next";
-			color: white;
-			letter-spacing: 1px;
-			font-size: 19px;
-			-webkit-font-smoothing: subpixel-antialiased;
-		}
-
-		.delete {
-			float: right;
-			clear: both;
-			font-family: "Avenir Next";
-			-webkit-font-smoothing: antialiased;
-			font-size: 12px;
-			opacity: 0.5;
-			margin-right: 13px;
-			margin-top: 10px;
-		}
-
-		.decisionDetails {
-			float: left;
-			display: block;
-			border: 1px solid #d64f2f;
-			width: 465px;
-			height: 160px;
-		}
-
-		.rationale {
-			display: block;
-			float: left;
-			margin-left: 10px;
-			margin-top: 10px;
-		}
-
-		.uppercaseSubHeading {
-			font-family: "Avenir Next";
-			text-transform: uppercase;
-			letter-spacing: 2px;
-			font-size: 10px;
-			font-weight: 600;
-		}
-
-		.rationale .uppercaseSubHeading {
-			display: block;
-			float: left;
-		}
-
-		.rationaleMessage {
-			font-family: "Avenir Next";
-			font-size: 10px;
-			margin-top: 10px;
-			float: right;
-			display: block;
-			opacity: 0;
-		}
-
-		.rationaleBox {
-			width: 290px;
-			height: 80px;
-			margin-top: 6px;
-			display: block;
-			resize: none;
-			background-color: transparent;
-			border: 1px solid white;
-			outline: none;
-			sp margin-left: 10px;
-			float: left;
-			clear: both;
-		}
-
-		.category {
-			display: block;
-			float: right;
-			/*background-color: aqua;*/
-			margin-right: 10px;
-		}
-
-		.category .uppercaseSubHeading {
-			margin-top: 18px;
-			display: block;
-			float: right;
-		}
-
-		.categorySelect {
-			display: block;
-			float: right;
-			clear: right;
-			margin-top: 5px;
-			outline: none;
-		}
-
-		.sketches {
-			display: block;
-			float: right;
-			/*background-color: palevioletred;*/
-			margin-right: 10px;
-			margin-top: 16px;
-		}
-
-		.sketches .uppercaseSubHeading {
-			display: block;
-			float: right;
-		}
-
-		.thumbContainer {
-			float: right;
-			clear: right;
-			display: block;
-		}
-
-		.thumb {
-			width: 60px;
-			height: 60px;
-			float: right;
-			-webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
-			-moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
-			box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
-			margin-left: -10px;
-			background-color: #E3E3E3;
-			border: 1px solid white;
-		}
-
-		.thumb:hover {
-			border: 1px solid black;
-		}
-
-		.thumb1 {
-			z-index: 1;
-		}
-
-		.thumb2 {
-			z-index: 2;
-		}
-	</style>
+  <style>
+    #decisionArea {
+      display: block;
+      float: left;
+      width: 467px;
+      margin-left: 150px;
+    }
+    
+    #decisionHelpMessage {
+      margin-top: 100px;
+      margin-bottom: 90px;
+      display: block;
+      font-family: "Avenir Next";
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: 13px;
+      float: left;
+    }
+    
+    .decisionShadow {
+      position: absolute;
+      left: 50px;
+      bottom: 55px;
+      opacity: 0.2;
+    }
+    
+    .new-decision {
+      float: left;
+      clear: both;
+      border: 1px solid #d64f2f;
+      width: 467px;
+      margin-bottom: 10px;
+    }
+    
+    .decisionLinkForm {
+      width: 467px;
+      text-align: center;
+      display: block;
+      font-family: "Avenir Next";
+      color: white;
+      letter-spacing: 1px;
+      font-size: 19px;
+      -webkit-font-smoothing: subpixel-antialiased;
+      background-color: transparent;
+      border: none;
+      padding-top: 17px;
+      padding-bottom: 17px;
+      outline: none;
+    }
+    
+    #decisions {
+      height: 760px;
+      width: 467px;
+      display: block;
+      float: left;
+    }
+    
+    .decisionBox {
+      float: left;
+      clear: both;
+      background-color: #d64f2f;
+      width: 467px;
+      margin-top: 10px;
+    }
+    
+    .decisionName {
+      width: 467px;
+      text-align: center;
+      display: block;
+      font-family: "Avenir Next";
+      color: white;
+      letter-spacing: 1px;
+      font-size: 19px;
+      -webkit-font-smoothing: subpixel-antialiased;
+    }
+    
+    .delete {
+      float: right;
+      clear: both;
+      font-family: "Avenir Next";
+      -webkit-font-smoothing: antialiased;
+      font-size: 12px;
+      opacity: 0.5;
+      margin-right: 13px;
+      margin-top: 10px;
+    }
+    
+    .decisionDetails {
+      float: left;
+      display: block;
+      border: 1px solid #d64f2f;
+      width: 465px;
+      height: 160px;
+    }
+    
+    .rationale {
+      display: block;
+      float: left;
+      margin-left: 10px;
+      margin-top: 10px;
+    }
+    
+    .uppercaseSubHeading {
+      font-family: "Avenir Next";
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      font-size: 10px;
+      font-weight: 600;
+    }
+    
+    .rationale .uppercaseSubHeading {
+      display: block;
+      float: left;
+    }
+    
+    .rationaleMessage {
+      font-family: "Avenir Next";
+      font-size: 10px;
+      margin-top: 10px;
+      float: right;
+      display: block;
+      opacity: 0;
+    }
+    
+    .rationaleBox {
+      width: 290px;
+      height: 80px;
+      margin-top: 6px;
+      display: block;
+      resize: none;
+      background-color: transparent;
+      border: 1px solid white;
+      outline: none;
+      sp margin-left: 10px;
+      float: left;
+      clear: both;
+    }
+    
+    .category {
+      display: block;
+      float: right;
+      /*background-color: aqua;*/
+      
+      margin-right: 10px;
+      margin-top: 24px;
+    }
+    
+    .category .uppercaseSubHeading {
+      margin-top: 18px;
+      display: block;
+      float: right;
+    }
+    
+    .categorySelect {
+      display: block;
+      float: right;
+      clear: right;
+      margin-top: 5px;
+      outline: none;
+    }
+    
+    .sketches {
+      display: block;
+      float: right;
+      /*background-color: palevioletred;*/
+      
+      margin-right: 10px;
+      margin-top: 16px;
+    }
+    
+    .sketches .uppercaseSubHeading {
+      display: block;
+      float: right;
+    }
+    
+    .thumbsContainer {
+      float: right;
+      clear: right;
+      display: block;
+    }
+    
+    .thumb {
+      width: 50px;
+      height: 50px;
+      float: right;
+      margin-left: -10px;
+      display: block;
+    }
+    
+    span.thumb {
+      margin-left: 10px;
+    }
+    
+    .thumb-picture {
+      position: absolute;
+      top: 0px;
+      left: 0px;
+      width: 50px;
+      height: 50px;
+      display: block;
+      z-index: 1;
+      border: 1px solid white;
+      -webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
+      -moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
+      box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
+      background-color: #E3E3E3;
+    }
+    
+    .thumb-picture-cover {
+      position: absolute;
+      width: 50px;
+      height: 50px;
+      background-color: #E3E3E3;
+      margin-left: 1px;
+      margin-top: 1px;
+      display: block;
+      z-index: 1002;
+    }
+    
+    .thumb-overlay {
+      position: absolute;
+      height: 26px;
+      margin-top: 26px;
+      width: 52px;
+      position: absolute;
+      z-index: 1003;
+      border-radius: 2px 2px 0 0;
+      background-color: rgba(37, 44, 58, .10);
+      opacity: 0;
+      -webkit-transition: -webkit-transform 200ms ease, opacity 200ms ease;
+    }
+    
+    .thumb-overlay:hover {
+      opacity: 1;
+    }
+    
+    .fa {
+      color: rgba(37, 44, 58, .88);
+      font-size: 12px;
+    }
+    
+    .thumb-delete {
+      float: right;
+      margin-top: 7px;
+      margin-right: 6px;
+      opacity: 0.33;
+      color: #d64f2f;
+    }
+    
+    .thumb-delete:hover {
+      opacity: 1;
+    }
+    
+    .thumb-new {
+      float: left;
+      margin-top: 7px;
+      margin-left: 6px;
+      opacity: 0.8
+    }
+    
+    .thumb-new:hover {
+      opacity: 1;
+    }
+    
+  </style>
 
 </template>
 
 <template name="decisionBox">
-	<div class="decisionContainer">
-		<div class="decisionBox animated fadeIn">
-			<p class="decisionName" style="float: left;">{{name}}</p>
-		</div>
-		<div class="decisionDetails">
+  <div class="decisionContainer">
+    <div class="decisionBox animated fadeIn">
+      <p class="decisionName" style="float: left;">{{name}}</p>
+    </div>
+    <div class="decisionDetails">
       <span class="rationale">
         <span class="uppercaseSubHeading">rationale and goal:</span>
-        <span class="rationaleMessage">saved</span>
-        <form class="rationaleForm">
-	        <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
-        </form>
+      <span class="rationaleMessage">saved</span>
+      <form class="rationaleForm">
+        <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
+      </form>
       </span>
-			<span class="sketches">
-				<span class="thumbContainer">
-					<img class="thumb thumb1" src={{thumb1}}>
-					<img class="thumb thumb2" src={{thumb2}}>
-				</span>
-			</span>
-			<span class="category">
-				<span class="uppercaseSubHeading">category:</span>
+      <span class="sketches">
+        <span class="thumbsContainer">
+          <span class="thumb">
+            <a href={{thumb1}}>
+              <img class="thumb-picture" src={{thumb1}}>
+            </a>
+            <span class="thumb-picture-cover"></span>
+            <div class="thumb-overlay">
+              <span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>
+              <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+            </div>
+          </span>
+          <span class="thumb">
+            <a href={{thumb2}}>
+              <img class="thumb-picture" src={{thumb2}}>
+            </a>
+            <span class="thumb-picture-cover"></span>
+            <div class="thumb-overlay">
+              <span class="fa fa-camera thumb-new" data-thumbNumber="2"></span>
+              <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+            </div>
+          </span>
+
+      <script>
+        $(function () {
+          $('a').fluidbox();
+        });
+      </script>
+      </span>
+      </span>
+      <span class="category">
 				<select class="categorySelect" value="architecture">
-					{{#if isSelected "-"}}
-						<option selected>-</option>
+					{{#if isSelected "- category"}}
+						<option selected>- category</option>
 					{{else}}
-						<option>-</option>
+						<option>- category</option>
 					{{/if}}
 					{{#if isSelected "application"}}
 							<option selected>application</option>
@@ -275,26 +358,27 @@
 					{{/if}}
 				</select>
 			</span>
-			<span class="delete">delete</span>
-		</div>
-	</div>
+      <span class="delete">delete</span>
+    </div>
+  </div>
 
-	<script>
-		// collapse decision details
-//		$(document).find('.decisionDetails').css('display', 'none');
-	</script>
+  <script>
+    // collapse decision details
+    $(document).find('.decisionDetails').css('display', 'none');
+    $(document).find('.thumb-picture-cover').css('display', 'none');
+  </script>
 
 
 </template>
 
 <template name="freeformSketch">
-	<div id="practiceSketchArea">
-		<span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
-		<!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
-		<canvas id="practiceSketch" width="1200" height="1500"></canvas>
+  <div id="practiceSketchArea">
+    <span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
+    <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
+    <canvas id="practiceSketch" width="1200" height="1500"></canvas>
     <span id="practiceSketchToolbar">
-      <img class="practiceTool colorSelector selectedTool" src="/palette-white.png" data-color="#FFF">
-      <img class="practiceTool colorSelector" src="/palette-black.png" data-color="#202020">
+      <img class="practiceTool colorSelector" src="/palette-white.png" data-color="#FFF">
+      <img class="practiceTool colorSelector selectedTool" src="/palette-black.png" data-color="#202020">
       <img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">
       <img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">
       <img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">
@@ -305,68 +389,67 @@
       <span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>
     </span>
 
-		<script>
+    <script>
+    </script>
 
-		</script>
-
-		<style>
-			#practiceSketchArea {
-				float: right;
-				border-left: 1px dotted rgba(255, 255, 255, 0.5);
-			}
-
-			.uppercaseHeading {
-				font-family: "Avenir Next";
-				text-transform: uppercase;
-				letter-spacing: 3px;
-				font-size: 13px;
-			}
-
-			#practiceSketchHelpMessage {
-				margin-top: 100px;
-				margin-bottom: -120px;
-				margin-right: 100px;
-				display: block;
-				float: right;
-				text-align: right;
-			}
-
-			#practiceSketch {
-				width: 1000px;
-				height: 1000px;
-				display: block;
-			}
-
-			#practiceSketchToolbar {
-				position: absolute;
-				bottom: 100px;
-				right: 100px;
-				text-align: right;
-			}
-
-			.practiceTool {
-				margin-left: 10px;
-			}
-
-			.toolWithMargin {
-				margin-left: 30px;
-			}
-
-			.colorSelector,
-			.eraserTool {
-				opacity: 0.4;
-			}
-
-			.selectedTool {
-				opacity: 1;
-				-webkit-filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.1));
-			}
-
-			.clearSelector {
-				display: block;
-				float: right;
-				margin-top: 4px;
-			}
-		</style>
-	</div>
+    <style>
+      #practiceSketchArea {
+        float: right;
+        border-left: 1px dotted rgba(255, 255, 255, 0.5);
+      }
+      
+      .uppercaseHeading {
+        font-family: "Avenir Next";
+        text-transform: uppercase;
+        letter-spacing: 3px;
+        font-size: 13px;
+      }
+      
+      #practiceSketchHelpMessage {
+        margin-top: 100px;
+        margin-bottom: -120px;
+        margin-right: 100px;
+        display: block;
+        float: right;
+        text-align: right;
+      }
+      
+      #practiceSketch {
+        width: 1000px;
+        height: 1000px;
+        display: block;
+      }
+      
+      #practiceSketchToolbar {
+        position: absolute;
+        bottom: 100px;
+        right: 100px;
+        text-align: right;
+      }
+      
+      .practiceTool {
+        margin-left: 10px;
+      }
+      
+      .toolWithMargin {
+        margin-left: 30px;
+      }
+      
+      .colorSelector,
+      .eraserTool {
+        opacity: 0.4;
+      }
+      
+      .selectedTool {
+        opacity: 1;
+        -webkit-filter: drop-shadow(0px 4px 5px rgba(0, 0, 0, 0.1));
+      }
+      
+      .clearSelector {
+        display: block;
+        float: right;
+        margin-top: 4px;
+      }
+    </style>
+  </div>
 </template>
