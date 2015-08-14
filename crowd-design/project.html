@@ -105,6 +105,7 @@
 			font-size: 12px;
 			opacity: 0.5;
 			margin-right: 13px;
+			margin-top: 10px;
 		}
 
 		.decisionDetails {
@@ -112,13 +113,14 @@
 			display: block;
 			border: 1px solid #d64f2f;
 			width: 465px;
-			height: 140px;
+			height: 160px;
 		}
 
 		.rationale {
 			display: block;
 			float: left;
 			margin-left: 10px;
+			margin-top: 10px;
 		}
 
 		.uppercaseSubHeading {
@@ -130,7 +132,6 @@
 		}
 
 		.rationale .uppercaseSubHeading {
-			margin-top: 10px;
 			display: block;
 			float: left;
 		}
@@ -166,7 +167,7 @@
 		}
 
 		.category .uppercaseSubHeading {
-			margin-top: 10px;
+			margin-top: 18px;
 			display: block;
 			float: right;
 		}
@@ -177,6 +178,49 @@
 			clear: right;
 			margin-top: 5px;
 			outline: none;
+		}
+
+		.sketches {
+			display: block;
+			float: right;
+			/*background-color: palevioletred;*/
+			margin-right: 10px;
+			margin-top: 16px;
+		}
+
+		.sketches .uppercaseSubHeading {
+			display: block;
+			float: right;
+		}
+
+		.thumbContainer {
+			float: right;
+			clear: right;
+			display: block;
+		}
+
+		.thumb {
+			width: 60px;
+			height: 60px;
+			float: right;
+			-webkit-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
+			-moz-box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
+			box-shadow: 0px 4px 5px 0px rgba(0,0,0,0.19);
+			margin-left: -10px;
+			background-color: #E3E3E3;
+			border: 1px solid white;
+		}
+
+		.thumb:hover {
+			border: 1px solid black;
+		}
+
+		.thumb1 {
+			z-index: 1;
+		}
+
+		.thumb2 {
+			z-index: 2;
 		}
 	</style>
 
@@ -195,6 +239,12 @@
 	        <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
         </form>
       </span>
+			<span class="sketches">
+				<span class="thumbContainer">
+					<img class="thumb thumb1" src={{thumb1}}>
+					<img class="thumb thumb2" src={{thumb2}}>
+				</span>
+			</span>
 			<span class="category">
 				<span class="uppercaseSubHeading">category:</span>
 				<select class="categorySelect" value="architecture">
@@ -241,7 +291,7 @@
 	<div id="practiceSketchArea">
 		<span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
 		<!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
-		<canvas id="practiceSketch" width="1200" height="3000"></canvas>
+		<canvas id="practiceSketch" width="1200" height="1500"></canvas>
     <span id="practiceSketchToolbar">
       <img class="practiceTool colorSelector selectedTool" src="/palette-white.png" data-color="#FFF">
       <img class="practiceTool colorSelector" src="/palette-black.png" data-color="#202020">
@@ -256,128 +306,7 @@
     </span>
 
 		<script>
-			var canvas = new fabric.Canvas('practiceSketch');
-			canvas.isDrawingMode = true;
-			canvas.freeDrawingBrush.width = 6
-			canvas.freeDrawingBrush.color = "white"
 
-			//      fabric.util.addListener(fabric.document, 'dblclick', function () {
-			//        canvas.clear().renderAll();
-			//      });
-
-			var canvasStateStack = [];
-			var canvasRedoStack = [];
-
-			function saveState() {
-				console.log("saved state");
-
-				if (canvasStateStack.length == 30) {
-					canvasStateStack.shift();
-				}
-				if (canvasRedoStack.length != 0) {
-					canvasRedoStack = [];
-				}
-				canvasStateStack.push(JSON.stringify(canvas));
-			}
-
-			saveState();
-			var recordingStates = true;
-
-			canvas.on('object:added', function (e) {
-				if (recordingStates) {
-					saveState();
-				}
-			})
-
-			canvas.on('object:modified', function (e) {
-				if (recordingStates) {
-					saveState();
-				}
-			})
-
-			canvas.on('object:removed', function (e) {
-				if (recordingStates) {
-					saveState();
-				}
-			})
-
-			// selecting colors
-			$(".colorSelector").click(function () {
-				$("img.selectedTool").removeClass("selectedTool");
-				$(this).addClass("selectedTool");
-				canvas.freeDrawingBrush.color = this.getAttribute("data-color");
-				disableEraser();
-			});
-
-			// selecting the eraser
-			$(".eraserTool").click(function () {
-				$("img.selectedTool").removeClass("selectedTool");
-				$(this).addClass("selectedTool");
-				enableEraser();
-			})
-
-			function disableEraser() {
-				canvas.off("mouse:down");
-				canvas.isDrawingMode = true;
-			}
-
-			function enableEraser() {
-				canvas.isDrawingMode = false;
-				canvas.on("mouse:down", function (e) {
-					if (canvas.getActiveGroup()) {
-						recordingStates = false;
-						canvas.getActiveGroup().forEachObject(function (a) {
-							canvas.remove(a);
-						});
-						canvas.discardActiveGroup();
-						recordingStates = true;
-					} else {
-						canvas.remove(canvas.getActiveObject());
-					}
-					canvas.renderAll();
-				});
-			}
-
-			$(".undoSelector").click(function () {
-				if (canvasStateStack.length > 1) {
-					recordingStates = false;
-					var currentState = canvasStateStack.pop();
-					canvasRedoStack.push(currentState);
-
-					var stateToReturnTo = canvasStateStack[canvasStateStack.length - 1];
-					canvas.loadFromJSON(stateToReturnTo);
-					canvas.renderAll();
-					recordingStates = true;
-				}
-			});
-
-			$(".redoSelector").click(function () {
-				if (canvasRedoStack.length > 0) {
-					recordingStates = false;
-					var stateToReturnTo = canvasRedoStack.pop();
-					canvasStateStack.push(stateToReturnTo);
-					canvas.loadFromJSON(stateToReturnTo);
-					canvas.renderAll();
-					recordingStates = true;
-				}
-			});
-
-			$(".clearSelector").click(function () {
-				if (canvas.getObjects().length > 0) {
-					canvas.clear().renderAll();
-					saveState();
-				}
-			})
-
-
-
-
-
-
-
-			function showShadow() {
-				$(".decisionShadow").isHidden = false;
-			}
 		</script>
 
 		<style>
