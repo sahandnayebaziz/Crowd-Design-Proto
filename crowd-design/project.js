@@ -61,8 +61,21 @@ if (Meteor.isClient) {
           feedbackMessage.removeClass('fadeOut');
         }, 3000);
       }, 1000)
+    },
+    "change .categorySelect": function (event) {
+      var selectedCategory = event.target.value;
+      Decisions.update(this._id, {$set: {category: selectedCategory}}, function () {
+        console.log("updated category");
+      });
     }
-  })
+  });
+
+  Template.decisionBox.helpers({
+    isSelected: function(cat) {
+      console.log(cat);
+      return (cat === this.category);
+    }
+  });
 }
 
 //  $(".decisionBox").click(function () {
