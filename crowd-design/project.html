@@ -110,7 +110,7 @@
       display: block;
       border: 1px solid #d64f2f;
       width: 465px;
-      height: 160px;
+      height: 195px;
     }
     
     .rationale {
@@ -126,6 +126,7 @@
       letter-spacing: 2px;
       font-size: 10px;
       font-weight: 600;
+	    opacity: .69;
     }
     
     .rationale .uppercaseSubHeading {
@@ -144,7 +145,7 @@
     
     .rationaleBox {
       width: 290px;
-      height: 80px;
+      height: 115px;
       margin-top: 6px;
       display: block;
       resize: none;
@@ -162,7 +163,7 @@
       /*background-color: aqua;*/
       
       margin-right: 10px;
-      margin-top: 24px;
+      margin-top: 10px;
     }
     
     .category .uppercaseSubHeading {
@@ -175,17 +176,15 @@
       display: block;
       float: right;
       clear: right;
-      margin-top: 5px;
+      margin-top: 10px;
       outline: none;
     }
     
     .sketches {
       display: block;
       float: right;
-      /*background-color: palevioletred;*/
-      
       margin-right: 10px;
-      margin-top: 16px;
+	    margin-top: 10px;
     }
     
     .sketches .uppercaseSubHeading {
@@ -197,6 +196,7 @@
       float: right;
       clear: right;
       display: block;
+	    margin-top: 16px;
     }
     
     .thumb {
@@ -300,6 +300,7 @@
       </form>
       </span>
       <span class="sketches">
+	      <span class="uppercaseSubHeading">sketches</span>
         <span class="thumbsContainer">
           <span class="thumb">
             <a href={{thumb1}}>
@@ -330,6 +331,7 @@
       </span>
       </span>
       <span class="category">
+	      <span class="uppercaseSubHeading">category</span>
 				<select class="categorySelect" value="architecture">
 					{{#if isSelected "- category"}}
 						<option selected>- category</option>

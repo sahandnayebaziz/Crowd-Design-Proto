@@ -94,7 +94,7 @@ if (Meteor.isClient) {
       
       var $unset = {};
       $unset[thumbName] = null;
-      Decisions.update(this._id, {$unset:{thumb1: "hello"}}, function () {
+      Decisions.update(this._id, {$unset:$unset}, function () {
         $(event.target).parents(".thumb").children(".thumb-picture-cover").show();
       });
       
