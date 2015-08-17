@@ -94,7 +94,7 @@
       -webkit-font-smoothing: subpixel-antialiased;
     }
     
-    .delete {
+    .deleteOpen, .deleteConfirm {
       float: right;
       clear: both;
       font-family: "Avenir Next";
@@ -103,6 +103,15 @@
       opacity: 0.5;
       margin-right: 13px;
       margin-top: 10px;
+    }
+
+    .deleteOpen {
+	    cursor: pointer
+    }
+
+    .deleteNo, .deleteYes {
+	    margin-left: 15px;
+	    cursor: pointer
     }
     
     .decisionDetails {
@@ -360,7 +369,8 @@
 					{{/if}}
 				</select>
 			</span>
-      <span class="delete">delete</span>
+      <span class="deleteOpen">delete</span>
+	    <span class="deleteConfirm" style="display: none;">Really delete? <span class="deleteYes">yes</span> <span class="deleteNo">no</span></span>
     </div>
   </div>
 

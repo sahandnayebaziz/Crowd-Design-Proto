@@ -36,8 +36,21 @@ if (Meteor.isClient) {
       $(".decisionShadow").isHidden = false;
       
     },
-    "click .delete": function () {
+    "click .deleteOpen": function (event) {
+      $(event.target).hide();
+      $(event.target).siblings(".deleteConfirm").show();
+
+      setTimeout(function () {
+        $(event.target).show();
+        $(event.target).siblings(".deleteConfirm").hide();
+      }, 3000);
+    },
+    "click .deleteYes": function (event) {
       Decisions.remove(this._id);
+    },
+    "click .deleteNo": function (event) {
+      $(event.target).parent().siblings(".deleteOpen").show();
+      $(event.target).parent().hide();
     }
   });
 
