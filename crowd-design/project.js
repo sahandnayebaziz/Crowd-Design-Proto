@@ -100,11 +100,15 @@ if (Meteor.isClient) {
       var url =  canvas.toDataURL({format: 'jpeg', quality: 0.3})
       canvas.backgroundColor = null;
       canvas.setBackgroundColor(null, canvas.renderAll.bind(canvas));
+      var json = JSON.stringify(canvas);
       
       var thumbName = "thumb" + thumbNumber;
-      
+      var jsonName = "json" + thumbNumber;
       var $set = {};
       $set[thumbName] = url;
+      $set[jsonName] = json;
+      console.log("saved json");
+      console.log("saved under " + jsonName);
       
       Decisions.update(this._id, {$set: $set}, function () {
         $(event.target).parents(".thumb").children(".thumb-picture-cover").hide();
@@ -119,8 +123,13 @@ if (Meteor.isClient) {
       Decisions.update(this._id, {$unset:$unset}, function () {
         $(event.target).parents(".thumb").children(".thumb-picture-cover").show();
       });
-      
-      
+    },
+    "click .thumb-apply": function (event) {
+      var thumbNumber = event.target.getAttribute("data-thumbNumber");
+      var jsonName = "json" + thumbNumber;
+
+      var json = this[jsonName];
+      canvas.loadFromJSON(json, canvas.renderAll.bind(canvas));
     }
   });
 
@@ -128,11 +137,6 @@ if (Meteor.isClient) {
     shouldShow: function() {
       console.log("checked");
       return Session.get(this.category) === "show";
-      //console.log("helper is checking object with name: " + this.name + " with cat: " + this.category);
-      //console.log("current session shows cat: " + this.category + " is " + Session.get(this.category));
-      //console.log("when this helper would have to be the");
-      //console.log(Session.get(this.category));
-      //return Session.get(this.category);
     },
     isSelected: function(cat) {
       return (cat === this.category);
@@ -148,12 +152,6 @@ if (Meteor.isClient) {
       Session.set("implementation", "show");
       Session.set("none", "show");
       Session.set("-", "show");
-
-      console.log(Session.get("application"))
-      console.log(Session.get("interaction"))
-      console.log(Session.get("architecture"))
-      console.log(Session.get("implementation"))
-
 
       this._rendered = true;
 

@@ -96,7 +96,6 @@
       width: 467px;
       display: block;
       float: left;
-	    overflow-y: scroll;
     }
     
     .decisionBox {
@@ -299,8 +298,15 @@
       opacity: 0;
       -webkit-transition: -webkit-transform 200ms ease, opacity 200ms ease;
     }
+
+    .thumb-apply {
+	    float: left;
+	    margin-top: 7px;
+	    margin-left: 4px;
+	    opacity: 0.8;
+    }
     
-    .thumb-overlay:hover {
+    .thumb-overlay:hover, .thumb-apply:hover {
       opacity: 1;
     }
     
@@ -325,7 +331,7 @@
       float: left;
       margin-top: 7px;
       margin-left: 6px;
-      opacity: 0.8
+      opacity: 0.8;
     }
     
     .thumb-new:hover {
@@ -363,8 +369,8 @@
             <span class="thumb-picture-cover"></span>
             <div class="thumb-overlay">
 	            <span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>
-	            <span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="2"></span>
-	            <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+	            <span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="1"></span>
+	            <span class="fa fa-trash thumb-delete" data-thumbNumber="1"></span>
             </div>
           </span>
           <span class="thumb">
