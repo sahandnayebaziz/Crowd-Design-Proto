@@ -1,52 +1,51 @@
 <template name="project">
-  {{> decisionsList}} {{> freeformSketch}}
+	<div class="container-fluid">
+		<div class="row">
+			{{> decisionsList}} {{> freeformSketch}}
+		</div>
+	</div>
+
   <!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
 
 <template name="decisionsList">
-  <div id="decisionArea">
-    <span id="decisionHelpMessage">Decision points for {{name}}:</span>
-    <form class="animated fadeIn new-decision" style="float: left; clear: both;">
-      <input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
-    </form>
-    <div id="decisions">
-      {{#each decisions}} {{> decisionBox}} {{/each}}
-    </div>
-	  <div id="filters">
-		  <span class="filterOption">
-			  <input checked type="checkbox" class="filterControl" value="application">
-			  <span class="filterTitle">application</span>
-		  </span>
-		  <span class="filterOption">
-			  <input checked type="checkbox" class="filterControl" value="interaction">
-			  <span class="filterTitle">interaction</span>
-		  </span>
-		  <span class="filterOption">
-			  <input checked type="checkbox" class="filterControl" value="architecture">
-			  <span class="filterTitle">architecture</span>
-		  </span>
-		  <span class="filterOption">
-			  <input checked type="checkbox" class="filterControl" value="implementation">
-			  <span class="filterTitle">implementation</span>
-		  </span>
-		  <span class="filterOption">
-			  <input checked type="checkbox" class="filterControl" value="none">
-			  <span class="filterTitle">none</span>
-		  </span>
-	  </div>
-    {{#if decisions.count}}
-    <img src="/barshadow.png" class="decisionShadow"> {{/if}}
-  </div>
+	<div class="col-md-4 col-sm-12">
+			<span id="decisionHelpMessage">Decision points for {{name}}:</span>
+			<form class="animated fadeIn new-decision">
+				<input type="text" name="text" class="decisionLinkForm" placeholder="new decision point" />
+			</form>
+			<div id="decisions">
+				{{#each decisions}} {{> decisionBox}} {{/each}}
+			</div>
+			<!--<div id="filters">-->
+		  <!--<span class="filterOption">-->
+			  <!--<input checked type="checkbox" class="filterControl" value="application">-->
+			  <!--<span class="filterTitle">application</span>-->
+		  <!--</span>-->
+		  <!--<span class="filterOption">-->
+			  <!--<input checked type="checkbox" class="filterControl" value="interaction">-->
+			  <!--<span class="filterTitle">interaction</span>-->
+		  <!--</span>-->
+		  <!--<span class="filterOption">-->
+			  <!--<input checked type="checkbox" class="filterControl" value="architecture">-->
+			  <!--<span class="filterTitle">architecture</span>-->
+		  <!--</span>-->
+		  <!--<span class="filterOption">-->
+			  <!--<input checked type="checkbox" class="filterControl" value="implementation">-->
+			  <!--<span class="filterTitle">implementation</span>-->
+		  <!--</span>-->
+		  <!--<span class="filterOption">-->
+			  <!--<input checked type="checkbox" class="filterControl" value="none">-->
+			  <!--<span class="filterTitle">none</span>-->
+		  <!--</span>-->
+			<!--</div>-->
+			<!--{{#if decisions.count}}-->
+				<!--<img src="/barshadow.png" class="decisionShadow"> {{/if}}-->
+	</div>
 
   <style>
-    #decisionArea {
-      display: block;
-      float: left;
-      width: 467px;
-      margin-left: 150px;
-    }
     
     #decisionHelpMessage {
       margin-top: 100px;
@@ -56,7 +55,6 @@
       text-transform: uppercase;
       letter-spacing: 3px;
       font-size: 13px;
-      float: left;
     }
     
     .decisionShadow {
@@ -68,15 +66,13 @@
     }
     
     .new-decision {
-      float: left;
-      clear: both;
       border: 1px solid #d64f2f;
-      width: 467px;
+      width: 100%;
       margin-bottom: 10px;
     }
     
     .decisionLinkForm {
-      width: 467px;
+      width: 100%;
       text-align: center;
       display: block;
       font-family: "Avenir Next";
@@ -91,23 +87,14 @@
       outline: none;
     }
     
-    #decisions {
-      height: 900px;
-      width: 467px;
-      display: block;
-      float: left;
-    }
-    
     .decisionBox {
-      float: left;
-      clear: both;
+	    width: 100%;
       background-color: #d64f2f;
-      width: 467px;
       margin-top: 10px;
     }
     
     .decisionName {
-      width: 467px;
+      width: 100%;
       text-align: center;
       display: block;
       font-family: "Avenir Next";
@@ -115,6 +102,9 @@
       letter-spacing: 1px;
       font-size: 19px;
       -webkit-font-smoothing: subpixel-antialiased;
+	    padding-top: 10px;
+	    padding-bottom: 10px;
+	    margin-bottom: 0px!IMPORTANT;
     }
 
     #filters {
@@ -155,10 +145,8 @@
     }
     
     .decisionDetails {
-      float: left;
       display: block;
       border: 1px solid #d64f2f;
-      width: 465px;
       height: 195px;
     }
     
@@ -339,7 +327,6 @@
     }
     
   </style>
-
 </template>
 
 <template name="decisionBox">
@@ -349,7 +336,7 @@
 		</script>
 		<div class="decisionContainer">
 			<div class="decisionBox animated fadeIn">
-				<p class="decisionName" style="float: left;">{{name}}</p>
+				<p class="decisionName">{{name}}</p>
 			</div>
 			<div class="decisionDetails">
       <span class="rationale">
@@ -442,30 +429,26 @@
 </template>
 
 <template name="freeformSketch">
-  <div id="practiceSketchArea">
+	<div class="col-md-8 col-sm-12" id="canvasContainer">
     <span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
-    <!-- ><span style="opacity: 0.3;">DOUBLE-CLICK TO CLEAR</span></!-->
-    <canvas id="practiceSketch" width="1200" height="1500"></canvas>
-    <span id="practiceSketchToolbar">
-      <img class="practiceTool colorSelector" src="/palette-white.png" data-color="#FFF">
-      <img class="practiceTool colorSelector selectedTool" src="/palette-black.png" data-color="#202020">
-      <img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">
-      <img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">
-      <img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">
-      <img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">
-      <img class="practiceTool eraserTool" src="/eraser.png">
-      <img class="practiceTool undoSelector toolWithMargin" src="/undo.png">
-      <img class="practiceTool redoSelector" src="/redo.png">
-      <span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>
-    </span>
-
-    <script>
-    </script>
+    <canvas id="practiceSketch" width="16" height="9"></canvas>
+    <!--<span id="practiceSketchToolbar">-->
+      <!--<img class="practiceTool colorSelector" src="/palette-white.png" data-color="#FFF">-->
+      <!--<img class="practiceTool colorSelector selectedTool" src="/palette-black.png" data-color="#202020">-->
+      <!--<img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">-->
+      <!--<img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">-->
+      <!--<img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">-->
+      <!--<img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">-->
+      <!--<img class="practiceTool eraserTool" src="/eraser.png">-->
+      <!--<img class="practiceTool undoSelector toolWithMargin" src="/undo.png">-->
+      <!--<img class="practiceTool redoSelector" src="/redo.png">-->
+      <!--<span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>-->
+    <!--</span>-->
 
     <style>
-      #practiceSketchArea {
-        float: right;
+      #practiceSketch {
         border-left: 1px dotted rgba(255, 255, 255, 0.5);
+	      border-right: 1px dotted rgba(255, 255, 255, 0.5);
       }
       
       .uppercaseHeading {
@@ -482,12 +465,6 @@
         display: block;
         float: right;
         text-align: right;
-      }
-      
-      #practiceSketch {
-        width: 1000px;
-        height: 1000px;
-        display: block;
       }
       
       #practiceSketchToolbar {

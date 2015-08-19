@@ -159,6 +159,11 @@ if (Meteor.isClient) {
         $('a').fluidbox();
       });
 
+      var canvasHeightShouldBe = $(window).height();
+      var canvasWidthShouldBe = $("#canvasContainer").width();
+      $("#practiceSketch").attr({"height":canvasHeightShouldBe, "width":canvasWidthShouldBe});
+
+
       // MARK: Create Canvas and add hooks
       canvas = new fabric.Canvas('practiceSketch');
       canvas.isDrawingMode = true;
@@ -267,6 +272,7 @@ if (Meteor.isClient) {
           saveState();
         }
       });
+
     }
   }
 }
