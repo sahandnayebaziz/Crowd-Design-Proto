@@ -77,7 +77,7 @@ if (Meteor.isClient) {
       Decisions.update(this._id, {$set: {rationale: text}});
       clearTimeout(timeoutId);
       timeoutId = setTimeout(function () {
-        var feedbackMessage = $($(event.target).parents(".rationale").children(".rationaleMessage")[0])
+        var feedbackMessage = $($(event.target).parents(".rationaleContainer").children(".rationaleMessage")[0])
         feedbackMessage.addClass('animated fadeIn');
         setTimeout(function () {
           feedbackMessage.removeClass('fadeIn');
