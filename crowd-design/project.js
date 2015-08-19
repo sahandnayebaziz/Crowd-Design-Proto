@@ -147,6 +147,7 @@ if (Meteor.isClient) {
       Session.set("architecture", "show");
       Session.set("implementation", "show");
       Session.set("none", "show");
+      Session.set("-", "show");
 
       console.log(Session.get("application"))
       console.log(Session.get("interaction"))
