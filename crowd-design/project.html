@@ -134,6 +134,7 @@
 			opacity: 0.5;
 			margin-right: 13px;
 			margin-top: 10px;
+			margin-bottom: 10px;;
 		}
 
 		.deleteOpen {
@@ -148,7 +149,6 @@
 		.decisionDetails {
 			display: block;
 			border: 1px solid #d64f2f;
-			height: 195px;
 		}
 
 		.rationaleContainer {
@@ -188,17 +188,15 @@
 			outline: none;
 		}
 
-		.category {
+		.categoryContainer {
 			display: block;
 			float: right;
-			/*background-color: aqua;*/
-
-			margin-right: 10px;
 			margin-top: 10px;
 		}
 
-		.category .uppercaseSubHeading {
-			margin-top: 18px;
+		.categoryContainer .uppercaseSubHeading {
+			margin-top: 16px;
+			margin-right: 10px;
 			display: block;
 			float: right;
 		}
@@ -207,7 +205,8 @@
 			display: block;
 			float: right;
 			clear: right;
-			margin-top: 10px;
+			margin-top: 6px;
+			margin-right: 10px;
 			outline: none;
 		}
 
@@ -220,59 +219,46 @@
 			float: right;
 			display: block;
 			margin-right: 10px;
-		}
-
-		.thumbsContainer {
-			float: right;
-			clear: right;
-			display: block;
-			margin-top: 16px;
+			margin-bottom: 8px;
 		}
 
 		.thumb {
 			width: 50px;
 			height: 50px;
 			float: right;
-			margin-left: -10px;
 			display: block;
-		}
-
-		span.thumb {
-			margin-left: 10px;
+			margin-right: 10px;
+			-webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
+			-moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
+			box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
 		}
 
 		.thumb-picture {
-			position: absolute;
-			top: 0px;
-			left: 0px;
 			width: 50px;
 			height: 50px;
 			display: block;
 			z-index: 1;
 			border: 1px solid white;
-			-webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
-			-moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
-			box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
 			background-color: #E3E3E3;
 		}
 
 		.thumb-picture-cover {
 			position: absolute;
+			top: 0px;
+			border: 1px solid white;
 			width: 50px;
 			height: 50px;
 			background-color: #E3E3E3;
-			margin-left: 1px;
-			margin-top: 1px;
 			display: block;
 			z-index: 1002;
 		}
 
 		.thumb-overlay {
-			position: absolute;
+			position: absolute!IMPORTANT;
+			top: 0px;
 			height: 26px;
 			margin-top: 26px;
 			width: 52px;
-			position: absolute;
 			z-index: 1003;
 			border-radius: 2px 2px 0 0;
 			background-color: rgba(37, 44, 58, .10);
@@ -330,7 +316,7 @@
 					<p class="decisionName">{{name}}</p>
 				</div>
 				<div class="decisionDetails">
-					<div class="row">
+					<div class="row"> <!-- rational, sketches, category-->
 						<div class="col-md-8 rationaleContainer">
 							<span class="uppercaseSubHeading">rationale and goal</span>
 							<span class="rationaleMessage">saved</span>
@@ -344,86 +330,83 @@
 									<span class="uppercaseSubHeading">sketches</span>
 								</div>
 							</div>
-
-									<!--<span class="sketches">-->
-	      <!--<span class="uppercaseSubHeading">sketches</span>-->
-        <!--<span class="thumbsContainer">-->
-          <!--<span class="thumb">-->
-            <!--<a href={{thumb1}}>-->
-	            <!--<img class="thumb-picture" src={{thumb1}}>-->
-            <!--</a>-->
-            <!--<span class="thumb-picture-cover"></span>-->
-            <!--<div class="thumb-overlay">-->
-	            <!--<span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>-->
-	            <!--<span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="1"></span>-->
-	            <!--<span class="fa fa-trash thumb-delete" data-thumbNumber="1"></span>-->
-            <!--</div>-->
-          <!--</span>-->
-          <!--<span class="thumb">-->
-            <!--<a href={{thumb2}}>-->
-	            <!--<img class="thumb-picture" src={{thumb2}}>-->
-            <!--</a>-->
-            <!--<span class="thumb-picture-cover"></span>-->
-            <!--<div class="thumb-overlay">-->
-	            <!--<span class="fa fa-camera thumb-new" data-thumbNumber="2"></span>-->
-	            <!--<span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="2"></span>-->
-	            <!--<span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>-->
-            <!--</div>-->
-          <!--</span>-->
-
-      <!--<script>-->
-	      <!--$(function () {-->
-		      <!--$('a').fluidbox();-->
-	      <!--});-->
-      <!--</script>-->
-      <!--</span>-->
-      <!--</span>-->
-
-
+							<div class="row">
+								<div class="col-md-12">
+									<span class="thumb">
+										<a href="{{thumb2}}">
+											<img class="thumb-picture" src="{{thumb2}}">
+										</a>
+										<span class="thumb-picture-cover"></span>
+										<div class="thumb-overlay">
+											<span class="fa fa-camera thumb-new" data-thumbNumber="2"></span>
+											<span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="2"></span>
+											<span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+										</div>
+									</span>
+									<span class="thumb">
+										<a href="{{thumb1}}">
+											<img class="thumb-picture" src="{{thumb1}}">
+										</a>
+										<span class="thumb-picture-cover"></span>
+										<div class="thumb-overlay">
+											<span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>
+											<span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="1"></span>
+											<span class="fa fa-trash thumb-delete" data-thumbNumber="1"></span>
+										</div>
+									</span>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-md-12 categoryContainer">
+									<span class="uppercaseSubHeading">category</span>
+									<select class="categorySelect" value="architecture">
+										{{#if isSelected "none"}}
+											<option selected>-</option>
+										{{else}}
+											<option>-</option>
+										{{/if}}
+										{{#if isSelected "application"}}
+											<option selected>application</option>
+										{{else}}
+											<option>application</option>
+										{{/if}}
+										{{#if isSelected "interaction"}}
+											<option selected>interaction</option>
+										{{else}}
+											<option>interaction</option>
+										{{/if}}
+										{{#if isSelected "architecture"}}
+											<option selected>architecture</option>
+										{{else}}
+											<option>architecture</option>
+										{{/if}}
+										{{#if isSelected "implementation"}}
+											<option selected>implementation</option>
+										{{else}}
+											<option>implementation</option>
+										{{/if}}
+									</select>
+								</div>
+							</div>
 						</div>
 					</div>
-
-
-      <span class="category">
-	      <span class="uppercaseSubHeading">category</span>
-				<select class="categorySelect" value="architecture">
-					{{#if isSelected "none"}}
-						<option selected>-</option>
-					{{else}}
-						<option>-</option>
-					{{/if}}
-					{{#if isSelected "application"}}
-						<option selected>application</option>
-					{{else}}
-						<option>application</option>
-					{{/if}}
-					{{#if isSelected "interaction"}}
-						<option selected>interaction</option>
-					{{else}}
-						<option>interaction</option>
-					{{/if}}
-					{{#if isSelected "architecture"}}
-						<option selected>architecture</option>
-					{{else}}
-						<option>architecture</option>
-					{{/if}}
-					{{#if isSelected "implementation"}}
-						<option selected>implementation</option>
-					{{else}}
-						<option>implementation</option>
-					{{/if}}
-				</select>
-			</span>
-					<span class="deleteOpen">delete</span>
-					<span class="deleteConfirm" style="display: none;">Really delete? <span class="deleteYes">yes</span> <span
-						class="deleteNo">no</span></span>
+					<div class="row">
+						<div class="col-md-12">
+							<span class="deleteOpen">delete</span>
+							<span class="deleteConfirm" style="display: none;">Really delete? <span class="deleteYes">yes</span> <span
+								class="deleteNo">no</span></span>
+						</div><!-- delete button -->
+					</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="decisionContainer">
+		<script>
+			$(function () {
+				$('a').fluidbox();
+			});
+		</script>
 
-		</div>
 		<script>
 			// collapse decision details
 //			$(document).find('.decisionDetails').css('display', 'none');
@@ -472,7 +455,6 @@
 			#practiceSketchHelpMessage {
 				margin-top: 100px;
 				margin-bottom: -120px;
-				margin-right: 100px;
 				display: block;
 				float: right;
 				text-align: right;
