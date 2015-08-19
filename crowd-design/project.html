@@ -14,6 +14,28 @@
     <div id="decisions">
       {{#each decisions}} {{> decisionBox}} {{/each}}
     </div>
+	  <div id="filters">
+		  <span class="filterOption">
+			  <input checked type="checkbox" class="filterControl" value="application">
+			  <span class="filterTitle">application</span>
+		  </span>
+		  <span class="filterOption">
+			  <input checked type="checkbox" class="filterControl" value="interaction">
+			  <span class="filterTitle">interaction</span>
+		  </span>
+		  <span class="filterOption">
+			  <input checked type="checkbox" class="filterControl" value="architecture">
+			  <span class="filterTitle">architecture</span>
+		  </span>
+		  <span class="filterOption">
+			  <input checked type="checkbox" class="filterControl" value="implementation">
+			  <span class="filterTitle">implementation</span>
+		  </span>
+		  <span class="filterOption">
+			  <input checked type="checkbox" class="filterControl" value="none">
+			  <span class="filterTitle">none</span>
+		  </span>
+	  </div>
     {{#if decisions.count}}
     <img src="/barshadow.png" class="decisionShadow"> {{/if}}
   </div>
@@ -42,6 +64,7 @@
       left: 50px;
       bottom: 55px;
       opacity: 0.2;
+	    display: none;
     }
     
     .new-decision {
@@ -69,10 +92,11 @@
     }
     
     #decisions {
-      height: 760px;
+      height: 900px;
       width: 467px;
       display: block;
       float: left;
+	    overflow-y: scroll;
     }
     
     .decisionBox {
@@ -92,6 +116,23 @@
       letter-spacing: 1px;
       font-size: 19px;
       -webkit-font-smoothing: subpixel-antialiased;
+    }
+
+    #filters {
+	    float: left;
+	    clear: both;
+	    margin-top: 10px;
+    }
+
+    .filterOption {
+	    float: left;
+	    margin-right: 13px;
+    }
+
+    .filterTitle {
+	    font-family: "Avenir Next";
+	    text-transform: lowercase;
+	    font-size: 12px;
     }
     
     .deleteOpen, .deleteConfirm {
@@ -296,16 +337,20 @@
 </template>
 
 <template name="decisionBox">
-  <div class="decisionContainer">
-    <div class="decisionBox animated fadeIn">
-      <p class="decisionName" style="float: left;">{{name}}</p>
-    </div>
-    <div class="decisionDetails">
+	{{#if shouldShow}}
+		<script>
+			console.log("should show!")
+		</script>
+		<div class="decisionContainer">
+			<div class="decisionBox animated fadeIn">
+				<p class="decisionName" style="float: left;">{{name}}</p>
+			</div>
+			<div class="decisionDetails">
       <span class="rationale">
         <span class="uppercaseSubHeading">rationale and goal:</span>
       <span class="rationaleMessage">saved</span>
       <form class="rationaleForm">
-        <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
+	      <textarea class="rationaleBox" placeholder="This decision point is important because...">{{rationale}}</textarea>
       </form>
       </span>
       <span class="sketches">
@@ -313,29 +358,31 @@
         <span class="thumbsContainer">
           <span class="thumb">
             <a href={{thumb1}}>
-              <img class="thumb-picture" src={{thumb1}}>
+	            <img class="thumb-picture" src={{thumb1}}>
             </a>
             <span class="thumb-picture-cover"></span>
             <div class="thumb-overlay">
-              <span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>
-              <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+	            <span class="fa fa-camera thumb-new" data-thumbNumber="1"></span>
+	            <span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="2"></span>
+	            <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
             </div>
           </span>
           <span class="thumb">
             <a href={{thumb2}}>
-              <img class="thumb-picture" src={{thumb2}}>
+	            <img class="thumb-picture" src={{thumb2}}>
             </a>
             <span class="thumb-picture-cover"></span>
             <div class="thumb-overlay">
-              <span class="fa fa-camera thumb-new" data-thumbNumber="2"></span>
-              <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
+	            <span class="fa fa-camera thumb-new" data-thumbNumber="2"></span>
+	            <span class="fa fa-pencil-square-o thumb-apply" data-thumbNumber="2"></span>
+	            <span class="fa fa-trash thumb-delete" data-thumbNumber="2"></span>
             </div>
           </span>
 
       <script>
-        $(function () {
-          $('a').fluidbox();
-        });
+	      $(function () {
+		      $('a').fluidbox();
+	      });
       </script>
       </span>
       </span>
@@ -348,9 +395,9 @@
 						<option>- category</option>
 					{{/if}}
 					{{#if isSelected "application"}}
-							<option selected>application</option>
+						<option selected>application</option>
 					{{else}}
-							<option>application</option>
+						<option>application</option>
 					{{/if}}
 					{{#if isSelected "interaction"}}
 						<option selected>interaction</option>
@@ -369,16 +416,21 @@
 					{{/if}}
 				</select>
 			</span>
-      <span class="deleteOpen">delete</span>
-	    <span class="deleteConfirm" style="display: none;">Really delete? <span class="deleteYes">yes</span> <span class="deleteNo">no</span></span>
-    </div>
-  </div>
+				<span class="deleteOpen">delete</span>
+				<span class="deleteConfirm" style="display: none;">Really delete? <span class="deleteYes">yes</span> <span class="deleteNo">no</span></span>
+			</div>
+		</div>
+		<script>
+			// collapse decision details
+			$(document).find('.decisionDetails').css('display', 'none');
+			$(document).find('.thumb-picture-cover').css('display', 'none');
+		</script>
+	{{else}}
+		<script>console.log("should not show!")</script>
+	{{/if}}
 
-  <script>
-    // collapse decision details
-    $(document).find('.decisionDetails').css('display', 'none');
-    $(document).find('.thumb-picture-cover').css('display', 'none');
-  </script>
+
+
 
 
 </template>

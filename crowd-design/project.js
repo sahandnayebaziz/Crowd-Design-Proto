@@ -26,15 +26,24 @@ if (Meteor.isClient) {
         Decisions.insert({
           name: text,
           createdAt: new Date(),
-          projectId: this._id // this refers to the current project
+          projectId: this._id, // this refers to the current project
+          category: "none"
         });
       }
+
       
       // Clear form
       event.target.text.value = "";
       
       $(".decisionShadow").isHidden = false;
       
+    },
+    "change .filterControl": function (event) {
+      var categoryToFilter = event.target.value;
+      console.log(categoryToFilter);
+      var showingCategory = $(event.target).is(':checked') ? "show" : "hide";
+      Session.set(categoryToFilter, showingCategory);
+      console.log(Session.get(categoryToFilter));
     },
     "click .deleteOpen": function (event) {
       $(event.target).hide();
@@ -116,6 +125,15 @@ if (Meteor.isClient) {
   });
 
   Template.decisionBox.helpers({
+    shouldShow: function() {
+      console.log("checked");
+      return Session.get(this.category) === "show";
+      //console.log("helper is checking object with name: " + this.name + " with cat: " + this.category);
+      //console.log("current session shows cat: " + this.category + " is " + Session.get(this.category));
+      //console.log("when this helper would have to be the");
+      //console.log(Session.get(this.category));
+      //return Session.get(this.category);
+    },
     isSelected: function(cat) {
       return (cat === this.category);
     }
@@ -123,6 +141,19 @@ if (Meteor.isClient) {
 
   Template.freeformSketch.rendered = function() {
     if(!this._rendered) {
+
+      Session.set("application", "show");
+      Session.set("interaction", "show");
+      Session.set("architecture", "show");
+      Session.set("implementation", "show");
+      Session.set("none", "show");
+
+      console.log(Session.get("application"))
+      console.log(Session.get("interaction"))
+      console.log(Session.get("architecture"))
+      console.log(Session.get("implementation"))
+
+
       this._rendered = true;
 
       $(function () {
