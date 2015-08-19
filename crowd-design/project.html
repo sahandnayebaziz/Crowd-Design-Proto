@@ -5,43 +5,46 @@
 		</div>
 	</div>
 
+
+
 	<!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
 
 <template name="decisionsList">
+	<div id="filters">
+		<span class="filterOption">
+		<input checked type="checkbox" class="filterControl" value="application">
+		<span class="filterTitle">application</span>
+		</span>
+		<span class="filterOption">
+		<input checked type="checkbox" class="filterControl" value="interaction">
+		<span class="filterTitle">interaction</span>
+		</span>
+		<span class="filterOption">
+		<input checked type="checkbox" class="filterControl" value="architecture">
+		<span class="filterTitle">architecture</span>
+		</span>
+		<span class="filterOption">
+		<input checked type="checkbox" class="filterControl" value="implementation">
+		<span class="filterTitle">implementation</span>
+		</span>
+		<span class="filterOption">
+		<input checked type="checkbox" class="filterControl" value="none">
+		<span class="filterTitle">none</span>
+		</span>
+	</div>
 	<div class="col-md-4 col-sm-12">
 		<span id="decisionHelpMessage">Decision points for {{name}}:</span>
-
 		<form class="animated fadeIn new-decision">
 			<input type="text" name="text" class="decisionLinkForm" placeholder="new decision point"/>
 		</form>
+
 		<div id="decisions">
 			{{#each decisions}} {{> decisionBox}} {{/each}}
 		</div>
-		<!--<div id="filters">-->
-		<!--<span class="filterOption">-->
-		<!--<input checked type="checkbox" class="filterControl" value="application">-->
-		<!--<span class="filterTitle">application</span>-->
-		<!--</span>-->
-		<!--<span class="filterOption">-->
-		<!--<input checked type="checkbox" class="filterControl" value="interaction">-->
-		<!--<span class="filterTitle">interaction</span>-->
-		<!--</span>-->
-		<!--<span class="filterOption">-->
-		<!--<input checked type="checkbox" class="filterControl" value="architecture">-->
-		<!--<span class="filterTitle">architecture</span>-->
-		<!--</span>-->
-		<!--<span class="filterOption">-->
-		<!--<input checked type="checkbox" class="filterControl" value="implementation">-->
-		<!--<span class="filterTitle">implementation</span>-->
-		<!--</span>-->
-		<!--<span class="filterOption">-->
-		<!--<input checked type="checkbox" class="filterControl" value="none">-->
-		<!--<span class="filterTitle">none</span>-->
-		<!--</span>-->
-		<!--</div>-->
+
 		<!--{{#if decisions.count}}-->
 		<!--<img src="/barshadow.png" class="decisionShadow"> {{/if}}-->
 	</div>
@@ -109,9 +112,9 @@
 		}
 
 		#filters {
-			float: left;
-			clear: both;
-			margin-top: 10px;
+			position: absolute;
+			bottom: 40px;
+			left: 20px;
 		}
 
 		.filterOption {
@@ -219,7 +222,6 @@
 			float: right;
 			display: block;
 			margin-right: 10px;
-			margin-bottom: 8px;
 		}
 
 		.thumb {
@@ -228,6 +230,7 @@
 			float: right;
 			display: block;
 			margin-right: 10px;
+			margin-top: 8px;
 			-webkit-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
 			-moz-box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
 			box-shadow: 0px 4px 5px 0px rgba(0, 0, 0, 0.19);
@@ -244,7 +247,7 @@
 
 		.thumb-picture-cover {
 			position: absolute;
-			top: 0px;
+			top: 8px;
 			border: 1px solid white;
 			width: 50px;
 			height: 50px;
@@ -257,7 +260,7 @@
 			position: absolute!IMPORTANT;
 			top: 0px;
 			height: 26px;
-			margin-top: 26px;
+			margin-top: 32px;
 			width: 52px;
 			z-index: 1003;
 			border-radius: 2px 2px 0 0;
@@ -409,7 +412,7 @@
 
 		<script>
 			// collapse decision details
-//			$(document).find('.decisionDetails').css('display', 'none');
+			$(document).find('.decisionDetails').css('display', 'none');
 			$(document).find('.thumb-picture-cover').css('display', 'none');
 		</script>
 	{{else}}
@@ -426,18 +429,18 @@
 	<div class="col-md-8 col-sm-12" id="canvasContainer">
 		<span id="practiceSketchHelpMessage" class="uppercaseHeading">SKETCH IDEAS ANYWHERE BELOW<br></span>
 		<canvas id="practiceSketch" width="16" height="9"></canvas>
-		<!--<span id="practiceSketchToolbar">-->
-		<!--<img class="practiceTool colorSelector" src="/palette-white.png" data-color="#FFF">-->
-		<!--<img class="practiceTool colorSelector selectedTool" src="/palette-black.png" data-color="#202020">-->
-		<!--<img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">-->
-		<!--<img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">-->
-		<!--<img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">-->
-		<!--<img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">-->
-		<!--<img class="practiceTool eraserTool" src="/eraser.png">-->
-		<!--<img class="practiceTool undoSelector toolWithMargin" src="/undo.png">-->
-		<!--<img class="practiceTool redoSelector" src="/redo.png">-->
-		<!--<span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>-->
-		<!--</span>-->
+		<span id="practiceSketchToolbar">
+		<img class="practiceTool colorSelector" src="/palette-white.png" data-color="#FFF">
+		<img class="practiceTool colorSelector selectedTool" src="/palette-black.png" data-color="#202020">
+		<img class="practiceTool colorSelector" src="/palette-ocean.png" data-color="#80D4FC">
+		<img class="practiceTool colorSelector" src="/palette-green.png" data-color="#6AB373">
+		<img class="practiceTool colorSelector" src="/palette-orange.png" data-color="#DE8A6E">
+		<img class="practiceTool colorSelector" src="/palette-yellow.png" data-color="#E9BB35">
+		<img class="practiceTool eraserTool" src="/eraser.png">
+		<img class="practiceTool undoSelector toolWithMargin" src="/undo.png">
+		<img class="practiceTool redoSelector" src="/redo.png">
+		<span class="practiceTool clearSelector uppercaseHeading toolWithMargin">CLEAR</span>
+		</span>
 
 		<style>
 			#practiceSketch {
@@ -462,8 +465,8 @@
 
 			#practiceSketchToolbar {
 				position: absolute;
-				bottom: 100px;
-				right: 100px;
+				bottom: 40px;
+				right: 40px;
 				text-align: right;
 			}
 
