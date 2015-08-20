@@ -32,7 +32,34 @@
 
 <template name="projectLink">
   <span class="project-wrapper" style="float: left; clear: both;"> 
-    <p style="float: left;"><a href='/projects/{{_id}}'>{{name}}</a></p>
-    <button style="float: left;" class="delete">&times;</button>
+    <p style="float: left;">
+	    {{name}} /
+	    <a href='/projects/{{_id}}'>decision phase</a> /
+	    <a href='/projects/{{_id}}/chart'>chart</a> /
+	    <a data-toggle="modal" href="#modal{{_id}}" style="color: indianred;">delete</a>
+	    <div id="modal{{_id}}" data-backdrop="false" class="modal fade">
+		    <div class="modal-dialog" role="document">
+			    <div class="modal-content">
+				    <div class="modal-header">
+					    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						    <span aria-hidden="true">&times;</span>
+						    <span class="sr-only">Close</span>
+					    </button>
+					    <h4 class="modal-title">Are you sure you want to delete {{name}}?</h4>
+				    </div>
+				    <div class="modal-body">
+					    <p>Deleting this project will delete this project forever. This cannot be undone.</p>
+				    </div>
+				    <div class="modal-footer">
+					    <button type="button" class="btn btn-secondary" data-dismiss="modal">No, cancel</button>
+					    <button type="button" data-dismiss="modal" class="delete btn btn-danger">Yes, delete</button>
+				    </div>
+			    </div><!-- /.modal-content -->
+		    </div><!-- /.modal-dialog -->
+	    </div><!-- /.modal -->
+    </p>
+
+
+
   </span>
 </template>
