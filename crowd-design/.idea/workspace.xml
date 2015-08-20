@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="0c39cae7-0741-4a6f-be42-744f52740a4c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/home.html" afterPath="$PROJECT_DIR$/home.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/project.html" afterPath="$PROJECT_DIR$/project.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="crowd-design.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -28,8 +26,8 @@
       <file leaf-file-name="project.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/project.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29991356">
-              <caret line="435" column="43" selection-start-line="435" selection-start-column="43" selection-end-line="435" selection-end-column="43" />
+            <state vertical-scroll-proportion="0.077787384">
+              <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
               <folding />
             </state>
           </provider>
@@ -103,7 +101,7 @@
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="83" />
-    <option name="y" value="23" />
+    <option name="y" value="24" />
     <option name="width" value="1339" />
     <option name="height" value="1451" />
   </component>
@@ -263,7 +261,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="83" y="23" width="1339" height="1451" extended-state="0" />
+    <frame x="83" y="24" width="1339" height="1451" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18894698" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -506,8 +504,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/project.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29991356">
-          <caret line="435" column="43" selection-start-line="435" selection-start-column="43" selection-end-line="435" selection-end-column="43" />
+        <state vertical-scroll-proportion="0.077787384">
+          <caret line="11" column="20" selection-start-line="11" selection-start-column="20" selection-end-line="11" selection-end-column="20" />
           <folding />
         </state>
       </provider>

@@ -4,10 +4,6 @@
 			{{> decisionsList}} {{> freeformSketch}}
 		</div>
 	</div>
-
-
-
-	<!--  <a href="/projects/{{_id}}/chart" style="float: left; clear: both; margin-top: 50px;">Go to design</a>-->
 </template>
 
 <!--RATIONALE AND GOAL -->
@@ -38,7 +34,7 @@
 	<div class="col-md-4 col-sm-12 col-lg-4">
 		<div class="row">
 			<div class="col-lg-8 col-lg-offset-2">
-				<span id="decisionHelpMessage">Decision points for {{name}}:</span>
+				<span id="decisionHelpMessage">Decision points for {{name}}:<br><a href="/">go back to projects</a></span>
 				<form class="animated fadeIn new-decision">
 					<input type="text" name="text" class="decisionLinkForm" placeholder="new decision point"/>
 				</form>
@@ -64,6 +60,15 @@
 			text-transform: uppercase;
 			letter-spacing: 3px;
 			font-size: 13px;
+		}
+
+		#decisionHelpMessage a {
+			opacity: 0.4;
+			text-decoration: none;
+		}
+		
+		#decisionHelpMessage a:hover {
+			opacity: 1;
 		}
 
 		.decisionShadow {
