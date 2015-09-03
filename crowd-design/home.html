@@ -1,10 +1,39 @@
-<head>
-  <title>crowd-design</title>
-</head>
+<!--
 
-<body>
-</body>
+Simply put, this is my understanding of how meteor works.
 
+1. Define templates. These are reusable chunks of HTML that can by dynamically loaded with your own stuff,
+whether it's as simple as model information in a model/viewmodel style or really more complicated setups where
+a template has elements that know how to run javascript and then dynamically load their own templates.
+
+Essentially though, you create a template, and then figure out how this template exists in a data context. For example,
+you could make a really simple template that just shows an h1 element, and the h1 element could say something like
+<h1>{{name}}</h1>
+
+In this situation, the double brackets tells Meteor to go running and figure out what the name is. If we passed this
+template a data context of some object that has a name field, boom, the name is in that header.
+
+
+2. For each template you make, (which you make by just saying <template name="MYNAME"></template>), you then
+define a bunch of things for the template, including but not limited to helper and events.
+
+helpers are like template-wide variables that can fetch things for you from mongo collections or Session, which is
+like a temporary dictionary for session-level information you want to keep track of but don't need to be writing to a
+database.
+
+events are just javascript hooks that you attach to things like form submission, clicks... any JS event for things
+
+3. Prosper
+
+
+Sidenote:
+File organization is pretty lax in meteor. I started naming them based on their high-level view and what the user sees,
+but you can split the files up however you like apart from some special meaning for the 'client' folder. Meteor reads
+all the stuff in the home directory though very easily.
+
+
+
+-->
 
 <!-- base -->
 
